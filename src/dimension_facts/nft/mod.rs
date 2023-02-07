@@ -17,6 +17,9 @@ pub async fn core_call<Request: Serialize, Response: DeserializeOwned>(
 ) -> anyhow::Result<Response> {
     let response = if let Some(request) = request {
         let body = serde_json::to_string_pretty(&request)?;
+        // todo
+        log::info!("Body: [{}]", body);
+        println!("Body: [{}]", body);
         reqwest::Client::new()
             .post(api_url)
             .header("accept", "application/json")
@@ -39,4 +42,17 @@ pub async fn core_call<Request: Serialize, Response: DeserializeOwned>(
             .await?
     };
     Ok(response)
+}
+
+
+pub fn limit_is_zero(value: &usize) -> bool {
+    is_zero(value)
+}
+
+pub fn page_is_zero(value: &usize) -> bool {
+    is_zero(value)
+}
+
+fn is_zero(value: &usize) -> bool {
+    *value == usize::MIN
 }

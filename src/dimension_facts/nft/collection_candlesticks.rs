@@ -15,7 +15,7 @@
 //!
 use serde::{Deserialize, Serialize};
 
-use super::core_call;
+use super::{core_call, limit_is_zero, page_is_zero};
 
 const COLLECTION_CANDLESTICKS_API: &str =
     "https://rest-api.hellomoon.io/v0/collection/listing/candlesticks";
@@ -119,17 +119,6 @@ fn granularity_is_empty(value: &Option<Granularity>) -> bool {
     }
 }
 
-fn limit_is_zero(value: &usize) -> bool {
-    is_zero(value)
-}
-
-fn page_is_zero(value: &usize) -> bool {
-    is_zero(value)
-}
-
-fn is_zero(value: &usize) -> bool {
-    *value == usize::MIN
-}
 
 /// The Collection Candlesticks endpoint allows you to choose the floor price period with
 /// the provided granularities of ONE_MIN, FIVE_MIN, ONE_HOUR, ONE_DAY, ONE_WEEK.
@@ -143,10 +132,13 @@ pub async fn collection_candlesticks(
 
 #[tokio::test]
 async fn test_collection_candlesticks() {
+
     let mut request = CCandlesticksRequest::default();
     request.limit = 1;
 
-    let left = collection_candlesticks("beb35a76-96aa-41d6-a9ed-312dcc5a1ac4", Some(request))
+    let api_key = dotenv::var("api_keys").unwrap();
+    
+    let left = collection_candlesticks(&api_key, Some(request))
         .await
         .unwrap();
     let r = serde_json::to_string_pretty(&left).unwrap();
