@@ -119,7 +119,6 @@ fn granularity_is_empty(value: &Option<Granularity>) -> bool {
     }
 }
 
-
 /// The Collection Candlesticks endpoint allows you to choose the floor price period with
 /// the provided granularities of ONE_MIN, FIVE_MIN, ONE_HOUR, ONE_DAY, ONE_WEEK.
 pub async fn collection_candlesticks(
@@ -132,12 +131,11 @@ pub async fn collection_candlesticks(
 
 #[tokio::test]
 async fn test_collection_candlesticks() {
-
     let mut request = CCandlesticksRequest::default();
     request.limit = 1;
 
     let api_key = dotenv::var("api_keys").unwrap();
-    
+
     let left = collection_candlesticks(&api_key, Some(request))
         .await
         .unwrap();

@@ -44,7 +44,6 @@ pub async fn core_call<Request: Serialize, Response: DeserializeOwned>(
     Ok(response)
 }
 
-
 pub fn limit_is_zero(value: &usize) -> bool {
     is_zero(value)
 }

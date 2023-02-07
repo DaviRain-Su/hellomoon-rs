@@ -7,8 +7,8 @@
 //! helloMoonCollectionId or nftMint is required to receive a successful query response.
 //!
 //!
-use serde::{Deserialize, Serialize};
 use super::{core_call, limit_is_zero, page_is_zero};
+use serde::{Deserialize, Serialize};
 
 // https://rest-api.hellomoon.io/v0/nft/collection/mints
 const COLLECTION_MINT_MAPPING_API: &str = "https://rest-api.hellomoon.io/v0/nft/collection/mints";
@@ -55,10 +55,14 @@ pub async fn collection_mint_mapping(
     api_key: &str,
     request: Option<CMintMappingRequest>,
 ) -> anyhow::Result<CMintMappingResponse> {
-    core_call::<CMintMappingRequest, CMintMappingResponse>(request, COLLECTION_MINT_MAPPING_API, api_key)
-        .await.map_err(|_| anyhow::anyhow!("helloMoonCollectionId or nftMint must be provided in body"))
+    core_call::<CMintMappingRequest, CMintMappingResponse>(
+        request,
+        COLLECTION_MINT_MAPPING_API,
+        api_key,
+    )
+    .await
+    .map_err(|_| anyhow::anyhow!("helloMoonCollectionId or nftMint must be provided in body"))
 }
-
 
 #[tokio::test]
 async fn test_collection_mint_mapping() {
@@ -66,7 +70,9 @@ async fn test_collection_mint_mapping() {
     request.hello_moon_collection_id = "040de757c0d2b75dcee999ddd47689c4".to_string();
 
     let api_key = dotenv::var("api_keys").unwrap();
-    let left = collection_mint_mapping(&api_key, Some(request)).await.unwrap();
+    let left = collection_mint_mapping(&api_key, Some(request))
+        .await
+        .unwrap();
 
     let r = serde_json::to_string_pretty(&left).unwrap();
     let right: CMintMappingResponse = serde_json::from_str(&r).unwrap();
