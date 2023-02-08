@@ -56,7 +56,7 @@ pub async fn scondary_sales(api_key: &str, request: Option<Request>) -> anyhow::
 }
 
 #[tokio::test]
-async fn test_metaplex_metadata() {
+async fn test_scondary_sales() {
     let mut request = Request::default();
     // request.hello_moon_collection_id = "040de757c0d2b75dcee999ddd47689c4".to_string();
 
