@@ -14,16 +14,16 @@ use serde::{Deserialize, Serialize};
 const COLLECTION_MINT_MAPPING_API: &str = "https://rest-api.hellomoon.io/v0/nft/collection/mints";
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
-pub struct Response {
+pub struct CollectionMintMappingResponse {
     /// array of objects
-    data: Vec<CMintMapping>,
+    data: Vec<CollectionMintMapping>,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
     pagination_token: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
-struct CMintMapping {
+struct CollectionMintMapping {
     /// To find the correct helloMoonCollectionId, click here and search a collection name. This list is continuously updated.
     #[serde(rename = "helloMoonCollectionId")]
     hello_moon_collection_id: String,
@@ -34,7 +34,7 @@ struct CMintMapping {
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
-pub struct Request {
+pub struct CollectionMintMappingRequest {
     /// To find the correct helloMoonCollectionId, click here and search a collection name. This list is continuously updated.
     #[serde(rename = "helloMoonCollectionId")]
     #[serde(skip_serializing_if = "String::is_empty")]
@@ -58,9 +58,9 @@ pub struct Request {
 
 pub async fn collection_mint_mapping(
     api_key: &str,
-    request: Option<Request>,
-) -> anyhow::Result<Response> {
-    core_call::<Request, Response>(
+    request: Option<CollectionMintMappingRequest>,
+) -> anyhow::Result<CollectionMintMappingResponse> {
+    core_call::<CollectionMintMappingRequest, CollectionMintMappingResponse>(
         request,
         COLLECTION_MINT_MAPPING_API,
         api_key,
@@ -71,7 +71,7 @@ pub async fn collection_mint_mapping(
 
 #[tokio::test]
 async fn test_collection_mint_mapping() {
-    let mut request = Request::default();
+    let mut request = CollectionMintMappingRequest::default();
     request.hello_moon_collection_id = "040de757c0d2b75dcee999ddd47689c4".to_string();
 
     let api_key = dotenv::var("api_keys").unwrap();
@@ -80,6 +80,6 @@ async fn test_collection_mint_mapping() {
         .unwrap();
 
     let r = serde_json::to_string_pretty(&left).unwrap();
-    let right: Response = serde_json::from_str(&r).unwrap();
+    let right: CollectionMintMappingResponse = serde_json::from_str(&r).unwrap();
     assert_eq!(left, right);
 }

@@ -1,4 +1,3 @@
-
 use super::{core_call, limit_is_zero, page_is_zero};
 use serde::{Deserialize, Serialize};
 
@@ -54,13 +53,9 @@ pub async fn metaplex_metadata(
     api_key: &str,
     request: Option<Request>,
 ) -> anyhow::Result<Response> {
-    core_call::<Request, Response>(
-        request,
-        API_URL,
-        api_key,
-    )
-    .await
-    .map_err(|_| anyhow::anyhow!("helloMoonCollectionId or nftMint must be provided in body"))
+    core_call::<Request, Response>(request, API_URL, api_key)
+        .await
+        .map_err(|_| anyhow::anyhow!("helloMoonCollectionId or nftMint must be provided in body"))
 }
 
 #[tokio::test]
@@ -69,12 +64,9 @@ async fn test_metaplex_metadata() {
     // request.hello_moon_collection_id = "040de757c0d2b75dcee999ddd47689c4".to_string();
 
     let api_key = dotenv::var("api_keys").unwrap();
-    let left = metaplex_metadata(&api_key, Some(request))
-        .await
-        .unwrap();
+    let left = metaplex_metadata(&api_key, Some(request)).await.unwrap();
 
     let r = serde_json::to_string_pretty(&left).unwrap();
     let right: Response = serde_json::from_str(&r).unwrap();
     assert_eq!(left, right);
 }
-

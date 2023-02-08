@@ -52,6 +52,6 @@ pub fn page_is_zero(value: &usize) -> bool {
     is_zero(value)
 }
 
-fn is_zero(value: &usize) -> bool {
+pub fn is_zero(value: &usize) -> bool {
     *value == usize::MIN
 }

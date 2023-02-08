@@ -21,16 +21,16 @@ const COLLECTION_CANDLESTICKS_API: &str =
     "https://rest-api.hellomoon.io/v0/collection/listing/candlesticks";
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
-pub struct Response {
+pub struct CollectionCandlesticksResponse {
     /// array of objects
-    data: Vec<CCandlesticks>,
+    data: Vec<CollectionCandlesticks>,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
     pagination_token: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
-pub struct CCandlesticks {
+pub struct CollectionCandlesticks {
     /// To find the correct helloMoonCollectionId, click here and search a collection name. This list is continuously updated.
     #[serde(rename = "helloMoonCollectionId")]
     pub hello_moon_collection_id: String,
@@ -61,7 +61,7 @@ pub struct CCandlesticks {
 }
 
 #[derive(Debug, Serialize, Deserialize, Default)]
-pub struct Request {
+pub struct CollectionCandlesticksRequest {
     /// To find the correct helloMoonCollectionId, click here and search a collection name.
     /// This list is continuously updated.
     #[serde(skip_serializing_if = "String::is_empty")]
@@ -123,15 +123,19 @@ fn granularity_is_empty(value: &Option<Granularity>) -> bool {
 /// the provided granularities of ONE_MIN, FIVE_MIN, ONE_HOUR, ONE_DAY, ONE_WEEK.
 pub async fn collection_candlesticks(
     api_key: &str,
-    request: Option<Request>,
-) -> anyhow::Result<Response> {
-    core_call::<Request, Response>(request, COLLECTION_CANDLESTICKS_API, api_key)
-        .await
+    request: Option<CollectionCandlesticksRequest>,
+) -> anyhow::Result<CollectionCandlesticksResponse> {
+    core_call::<CollectionCandlesticksRequest, CollectionCandlesticksResponse>(
+        request,
+        COLLECTION_CANDLESTICKS_API,
+        api_key,
+    )
+    .await
 }
 
 #[tokio::test]
 async fn test_collection_candlesticks() {
-    let mut request = Request::default();
+    let mut request = CollectionCandlesticksRequest::default();
     request.limit = 1;
 
     let api_key = dotenv::var("api_keys").unwrap();
@@ -140,6 +144,6 @@ async fn test_collection_candlesticks() {
         .await
         .unwrap();
     let r = serde_json::to_string_pretty(&left).unwrap();
-    let right: Response = serde_json::from_str(&r).unwrap();
+    let right: CollectionCandlesticksResponse = serde_json::from_str(&r).unwrap();
     assert_eq!(left, right);
 }

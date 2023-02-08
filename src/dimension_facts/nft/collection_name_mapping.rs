@@ -11,16 +11,16 @@ use serde::{Deserialize, Serialize};
 const COLLECTION_NAME_MAPPING_API: &str = "https://rest-api.hellomoon.io/v0/nft/collection/name";
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
-pub struct Response {
+pub struct CollectionNameMappingResponse {
     /// array of objects
-    data: Vec<CNameMapping>,
+    data: Vec<CollectionNameMapping>,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
     pagination_token: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
-pub struct CNameMapping {
+pub struct CollectionNameMapping {
     /// The name of the collection
     #[serde(rename = "collectionName")]
     collection_name: String,
@@ -33,7 +33,7 @@ pub struct CNameMapping {
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
-pub struct Request {
+pub struct CollectionNameMappingRequest {
     /// To find the correct helloMoonCollectionId,
     /// click here and search a collection name.
     /// This list is continuously updated.
@@ -58,9 +58,9 @@ pub struct Request {
 
 pub async fn collection_name_mapping(
     api_key: &str,
-    request: Option<Request>,
-) -> anyhow::Result<Response> {
-    core_call::<Request, Response>(
+    request: Option<CollectionNameMappingRequest>,
+) -> anyhow::Result<CollectionNameMappingResponse> {
+    core_call::<CollectionNameMappingRequest, CollectionNameMappingResponse>(
         request,
         COLLECTION_NAME_MAPPING_API,
         api_key,
@@ -71,7 +71,7 @@ pub async fn collection_name_mapping(
 
 #[tokio::test]
 async fn test_collection_name_mapping() {
-    let mut request = Request::default();
+    let mut request = CollectionNameMappingRequest::default();
     request.hello_moon_collection_id = "040de757c0d2b75dcee999ddd47689c4".to_string();
 
     let api_key = dotenv::var("api_keys").unwrap();
@@ -80,7 +80,6 @@ async fn test_collection_name_mapping() {
         .unwrap();
 
     let r = serde_json::to_string_pretty(&left).unwrap();
-    let right: Response = serde_json::from_str(&r).unwrap();
+    let right: CollectionNameMappingResponse = serde_json::from_str(&r).unwrap();
     assert_eq!(left, right);
 }
-
