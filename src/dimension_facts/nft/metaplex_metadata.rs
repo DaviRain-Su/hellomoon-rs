@@ -89,9 +89,13 @@ pub async fn metaplex_metadata(
     api_key: &str,
     request: Option<MetaplexMetadataRequest>,
 ) -> anyhow::Result<MetaplexMetadataResponse> {
-    core_call::<MetaplexMetadataRequest, MetaplexMetadataResponse>(request, METAPLEX_METADATA_API_URL, api_key)
-        .await
-        .map_err(|_| anyhow::anyhow!("helloMoonCollectionId or nftMint must be provided in body"))
+    core_call::<MetaplexMetadataRequest, MetaplexMetadataResponse>(
+        request,
+        METAPLEX_METADATA_API_URL,
+        api_key,
+    )
+    .await
+    .map_err(|_| anyhow::anyhow!("helloMoonCollectionId or nftMint must be provided in body"))
 }
 
 #[tokio::test]

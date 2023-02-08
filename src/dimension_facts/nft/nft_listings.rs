@@ -1,7 +1,7 @@
 //! # NFT Listings
-//! 
+//!
 //! POST `https://rest-api.hellomoon.io/v0/nft/listings`
-//! 
+//!
 //! The NFT Listings endpoint provides different degrees of perspective NFT datasets. Viewing NFTs from a specific market or collection, down to a single unique NFT mint.
 //!
 //! Hello Moon also delivers the nft listing actions - ask, cancel_ask, put_for_sale, and sale_cancel
@@ -75,13 +75,13 @@ pub struct NftListingsRequest {
     #[serde(rename = "instructionName")]
     #[serde(skip_serializing_if = "Option::is_none")]
     instruction_name: Option<InstructionName>,
-    
+
     /// First signature in a transaction, which can be used to track and verify the transaction status across the complete ledger.
     /// It is a base-58 encoded string that is uniquely generated for each transaction.
     #[serde(rename = "transactionId")]
     #[serde(skip_serializing_if = "String::is_empty")]
     transaction_id: String,
-    
+
     /// Numeric identifier of a block describing the slot that the block was produced in
     #[serde(rename = "blockId")]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -109,11 +109,11 @@ pub struct NftListingsRequest {
     /// The number of results to return per page
     #[serde(skip_serializing_if = "limit_is_zero")]
     limit: usize,
-    
+
     /// The page number to return
     #[serde(skip_serializing_if = "page_is_zero")]
     page: usize,
-    
+
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
     #[serde(skip_serializing_if = "String::is_empty")]
@@ -144,10 +144,13 @@ pub enum Market {
     Smb,
     Yawww,
 }
-pub async fn nft_listings(api_key: &str, request: Option<NftListingsRequest>) -> anyhow::Result<NftListingsResponse> {
+pub async fn nft_listings(
+    api_key: &str,
+    request: Option<NftListingsRequest>,
+) -> anyhow::Result<NftListingsResponse> {
     core_call::<NftListingsRequest, NftListingsResponse>(request, NFT_LISTING_API_URL, api_key)
         .await
-        // .map_err(|_| anyhow::anyhow!("helloMoonCollectionId or nftMint must be provided in body"))
+    // .map_err(|_| anyhow::anyhow!("helloMoonCollectionId or nftMint must be provided in body"))
 }
 
 #[tokio::test]
