@@ -21,7 +21,7 @@ const COLLECTION_CANDLESTICKS_API: &str =
     "https://rest-api.hellomoon.io/v0/collection/listing/candlesticks";
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
-pub struct CCResponse {
+pub struct Response {
     /// array of objects
     data: Vec<CCandlesticks>,
     /// The pagination token to use to keep your position in the results
@@ -61,7 +61,7 @@ pub struct CCandlesticks {
 }
 
 #[derive(Debug, Serialize, Deserialize, Default)]
-pub struct CCandlesticksRequest {
+pub struct Request {
     /// To find the correct helloMoonCollectionId, click here and search a collection name.
     /// This list is continuously updated.
     #[serde(skip_serializing_if = "String::is_empty")]
@@ -123,15 +123,15 @@ fn granularity_is_empty(value: &Option<Granularity>) -> bool {
 /// the provided granularities of ONE_MIN, FIVE_MIN, ONE_HOUR, ONE_DAY, ONE_WEEK.
 pub async fn collection_candlesticks(
     api_key: &str,
-    request: Option<CCandlesticksRequest>,
-) -> anyhow::Result<CCResponse> {
-    core_call::<CCandlesticksRequest, CCResponse>(request, COLLECTION_CANDLESTICKS_API, api_key)
+    request: Option<Request>,
+) -> anyhow::Result<Response> {
+    core_call::<Request, Response>(request, COLLECTION_CANDLESTICKS_API, api_key)
         .await
 }
 
 #[tokio::test]
 async fn test_collection_candlesticks() {
-    let mut request = CCandlesticksRequest::default();
+    let mut request = Request::default();
     request.limit = 1;
 
     let api_key = dotenv::var("api_keys").unwrap();
@@ -140,6 +140,6 @@ async fn test_collection_candlesticks() {
         .await
         .unwrap();
     let r = serde_json::to_string_pretty(&left).unwrap();
-    let right: CCResponse = serde_json::from_str(&r).unwrap();
+    let right: Response = serde_json::from_str(&r).unwrap();
     assert_eq!(left, right);
 }
