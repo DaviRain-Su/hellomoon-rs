@@ -22,7 +22,7 @@ const COLLECTION_CANDLESTICKS_API: &str =
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct CCResponse {
-    /// data: array of objects
+    /// array of objects
     data: Vec<CCandlesticks>,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]

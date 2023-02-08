@@ -15,15 +15,20 @@ const COLLECTION_MINT_MAPPING_API: &str = "https://rest-api.hellomoon.io/v0/nft/
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct CMintMappingResponse {
+    /// array of objects
     data: Vec<CMintMapping>,
+    /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
     pagination_token: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 struct CMintMapping {
+    /// To find the correct helloMoonCollectionId, click here and search a collection name. This list is continuously updated.
     #[serde(rename = "helloMoonCollectionId")]
     hello_moon_collection_id: String,
+    /// Mint address of nft per the spl token program.
+    /// Each NFT has a unique mint address within the collection.
     #[serde(rename = "nftMint")]
     nft_mint: String,
 }
