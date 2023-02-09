@@ -1,69 +1,169 @@
+//! # Primary Sales
+//!
+//! POST `https://rest-api.hellomoon.io/v0/nft/sales/primary`
+//!
+//! The NFT Primary Sales endpoint captures the moment that the NFT was minted for a collection.
+//! View key data fields such as what NFT was minted, the mintProgram or launchpad, who minted the NFT, and the amount it cost to mint.
+//!
+//! Data goes back 30 days for supported launchpads and mint programs.
 use super::{core_call, limit_is_zero, page_is_zero};
 use serde::{Deserialize, Serialize};
 
-const API_URL: &str = "";
+const PRIMARY_SALES_API_URL: &str = "https://rest-api.hellomoon.io/v0/nft/sales/primary";
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
-pub struct Response {
-    // /// array of objects
-    // data: Vec<CNameMapping>,
-    // /// The pagination token to use to keep your position in the results
-    // #[serde(rename = "paginationToken")]
-    // pagination_token: String,
+pub struct PrimarySalesResponse {
+    /// array of objects
+    data: Option<Vec<PrimarySales>>,
+    /// The pagination token to use to keep your position in the results
+    #[serde(rename = "paginationToken")]
+    pagination_token: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
-pub struct ExampleApi {
-    // /// The name of the collection
-    // #[serde(rename = "collectionName")]
-    // collection_name: String,
-    // /// To find the correct helloMoonCollectionId, click here and search a collection name. This list is continuously updated.
-    // #[serde(rename = "helloMoonCollectionId")]
-    // hello_moon_collection_id: String,
-    // /// Current volume of the collection in SOL (lamports) looking back 24 hours
-    // #[serde(rename = "currentVolumeSOL")]
-    // current_volume_sol: String,
+pub struct PrimarySales {
+    /// The program that minted this NFT.
+    /// For example, the Candy Machine v2 program helps creators launch their NFT collections and brings their metadata on the Solana blockchain.
+    /// **Choose a program address below to query by, each address is mapped to it's program name.**
+    /// > cndy3Z4yapfJBmL3ShUp5exZKqR3z33thTzeNMm2gRZ = Metaplex NFT Candy Machine v2
+    /// > ArAA6CZC123yMJLUe4uisBEgvfuw2WEvex9iFmFCYiXv = nft_candy_machine
+    /// > CMZYPASGWeTz7RNGHaRJfCq2XQ5pYK6nDvVQxzkH51zb = Nft Candy Machine
+    /// > cndyAnrLdpjq1Ssp1z8xxDsB8dxe7u4HL5Nxi2K5WXZ = Metaplex NFT Candy Machine v1
+    #[serde(rename = "mintProgram")]
+    mint_program: Option<String>,
+    /// The mint address of the NFT that was minted and received by the payer.
+    #[serde(rename = "nftMint")]
+    nft_mint: Option<String>,
+    /// The user account that paid for the NFT to be minted on the mintProgram.
+    /// The account will be the owner at the time of the mint, unless it was transferred to another account afterwards.
+    #[serde(rename = "paginationToken")]
+    payer: Option<String>,
+    /// The token account that created the NFT, before it was minted to the payer.
+    /// The payer will pay this account an amount of tokens, NFTs or SOL in exchange for the NFT mint.
+    payee: Option<String>,
+    /// The mint address of the token that is received by the payee in exchange for the mint of the NFT.
+    #[serde(rename = "paymentMint")]
+    payment_mint: Option<String>,
+    /// Amount paid in paymentMint's native tokens, unconverted for decimals.
+    /// > If Amount = 1, it means the payer exchanged a claim token that is related to the creators of the NFT collection for the mint. For example, 1 Trippin' Ape Tribe Mushroom Claim Token was used in exchange for the mint of a MUSHROOM NFT.
+    /// > If Amount > 1, The amount is in the source mint's native unit, which is differentiated by it's decimal value.
+    /// For example, the amount of 1,000,000 for the source mint of USDC would be 1 USDC since its decimal value is 6.
+    amount: Option<String>,
+    /// The associated token account. This program defined the mapping between the payer and the token accounts that they own.
+    /// A user may own many token accounts belonging to the same mint address.
+    /// The associated token account introduces a way to deterministically map a user to a token account then to the unique mint address.
+    wallet: Option<String>,
+    /// To find the correct helloMoonCollectionId, click here and search a collection name. This list is continuously updated.
+    #[serde(rename = "helloMoonCollectionId")]
+    hello_moon_collection_id: Option<String>,
+    /// Unix epoch time (in seconds) of a block as calculated from validator votes.
+    /// If you want to look at historical data, let's say 7 days in the past.
+    /// 1. Change the operator to <
+    /// 2. Get the current epochtime i.e, 1673831466 -> Jan 15, 2023
+    /// 3. Subtract the current epochtime from ( 86400 * 7 ). Place the result of 1673831466 - ( 86400 * 7 ) = 1673226666 in the value input - this returns the epochtime time from 7 days ago
+    #[serde(rename = "blockTime")]
+    block_time: Option<String>,
+    /// Numeric identifier of a block describing the slot that the block was produced in
+    #[serde(rename = "blockId")]
+    block_id: Option<String>,
+    /// First signature in a transaction, which can be used to track and verify the transaction status across the complete ledger.
+    /// It is a base-58 encoded string that is uniquely generated for each transaction.
+    #[serde(rename = "transactionId")]
+    transaction_id: Option<String>,
+    /// Zero-indexed position of the transaction within the block
+    #[serde(rename = "transactionPosition")]
+    transaction_position: Option<usize>,
+    /// The zero-indexed position of an instruction - subinstruction combination in the context of the transaction. This is generated by flattening all instruction/subinstruction/sub-subinstruction/... and numbering them from 0.
+    instructionposition: Option<usize>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
-pub struct Request {
-    // /// To find the correct helloMoonCollectionId,
-    // /// click here and search a collection name.
-    // /// This list is continuously updated.
-    // #[serde(rename = "helloMoonCollectionId")]
-    // #[serde(skip_serializing_if = "String::is_empty")]
-    // hello_moon_collection_id: String,
-    // /// The name of the collection
-    // #[serde(rename = "collectionName")]
-    // #[serde(skip_serializing_if = "String::is_empty")]
-    // collection_name: String,
-    // /// The number of results to return per page
-    // #[serde(skip_serializing_if = "limit_is_zero")]
-    // limit: usize,
-    // /// The page number to return
-    // #[serde(skip_serializing_if = "page_is_zero")]
-    // page: usize,
-    // /// The pagination token to use to keep your position in the results
-    // #[serde(rename = "paginationToken")]
-    // #[serde(skip_serializing_if = "String::is_empty")]
-    // pagination_token: String,
+pub struct PrimarySalesRequest {
+    /// The mint address of the NFT that was minted and received by the payer.
+    #[serde(rename = "nftMint")]
+    #[serde(skip_serializing_if = "String::is_empty")]
+    nft_mint: String,
+    /// To find the correct helloMoonCollectionId, click here and search a collection name. This list is continuously updated.
+    #[serde(rename = "helloMoonCollectionId")]
+    #[serde(skip_serializing_if = "String::is_empty")]
+    hello_moon_collection_id: String,
+    /// First signature in a transaction, which can be used to track and verify the transaction status across the complete ledger.
+    /// It is a base-58 encoded string that is uniquely generated for each transaction.
+    #[serde(rename = "transactionId")]
+    #[serde(skip_serializing_if = "String::is_empty")]
+    transaction_id: String,
+    /// The program that minted this NFT.
+    /// For example, the Candy Machine v2 program helps creators launch their NFT collections and brings their metadata on the Solana blockchain.
+    /// **Choose a program address below to query by, each address is mapped to it's program name.**
+    /// > cndy3Z4yapfJBmL3ShUp5exZKqR3z33thTzeNMm2gRZ = Metaplex NFT Candy Machine v2
+    /// > ArAA6CZC123yMJLUe4uisBEgvfuw2WEvex9iFmFCYiXv = nft_candy_machine
+    /// > CMZYPASGWeTz7RNGHaRJfCq2XQ5pYK6nDvVQxzkH51zb = Nft Candy Machine
+    /// > cndyAnrLdpjq1Ssp1z8xxDsB8dxe7u4HL5Nxi2K5WXZ = Metaplex NFT Candy Machine v1
+    #[serde(rename = "mintProgram")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    mint_program: Option<MintProgram>,
+    /// The user account that paid for the NFT to be minted on the mintProgram.
+    /// The account will be the owner at the time of the mint, unless it was transferred to another account afterwards.
+    #[serde(skip_serializing_if = "String::is_empty")]
+    payer: String,
+    /// The mint address of the token that is received by the payee in exchange for the mint of the NFT.
+    #[serde(rename = "paymentMint")]
+    #[serde(skip_serializing_if = "String::is_empty")]
+    payment_mint: String,
+    /// The associated token account. This program defined the mapping between the payer and the token accounts that they own.
+    /// A user may own many token accounts belonging to the same mint address.
+    /// The associated token account introduces a way to deterministically map a user to a token account then to the unique mint address.
+    #[serde(skip_serializing_if = "String::is_empty")]
+    wallet: String,
+    /// The number of results to return per page
+    #[serde(skip_serializing_if = "limit_is_zero")]
+    limit: usize,
+    /// The page number to return
+    #[serde(skip_serializing_if = "page_is_zero")]
+    page: usize,
+    /// The pagination token to use to keep your position in the results
+    #[serde(rename = "paginationToken")]
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pagination_token: String,
 }
 
-pub async fn primary_sales(api_key: &str, request: Option<Request>) -> anyhow::Result<Response> {
-    core_call::<Request, Response>(request, API_URL, api_key)
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+pub enum MintProgram {
+    #[serde(rename = "cndy3Z4yapfJBmL3ShUp5exZKqR3z33thTzeNMm2gRZ")]
+    /// Metaplex NFT Candy Machine v2
+    Cndy3Z4yapfJBmL3ShUp5exZKqR3z33thTzeNMm2gRZ,
+    /// nft_candy_machine
+    ArAA6CZC123yMJLUe4uisBEgvfuw2WEvex9iFmFCYiXv,
+    /// Nft Candy Machine
+    CMZYPASGWeTz7RNGHaRJfCq2XQ5pYK6nDvVQxzkH51zb,
+    #[serde(rename = "cndyAnrLdpjq1Ssp1z8xxDsB8dxe7u4HL5Nxi2K5WXZ")]
+    /// Metaplex NFT Candy Machine v1
+    CndyAnrLdpjq1Ssp1z8xxDsB8dxe7u4HL5Nxi2K5WXZ,
+}
+
+impl Default for MintProgram {
+    fn default() -> Self {
+        Self::Cndy3Z4yapfJBmL3ShUp5exZKqR3z33thTzeNMm2gRZ
+    }
+}
+
+pub async fn primary_sales(
+    api_key: &str,
+    request: Option<PrimarySalesRequest>,
+) -> anyhow::Result<PrimarySalesResponse> {
+    core_call::<PrimarySalesRequest, PrimarySalesResponse>(request, PRIMARY_SALES_API_URL, api_key)
         .await
-        .map_err(|_| anyhow::anyhow!("helloMoonCollectionId or nftMint must be provided in body"))
 }
 
 #[tokio::test]
 async fn test_primary_sales() {
-    let mut request = Request::default();
-    // request.hello_moon_collection_id = "040de757c0d2b75dcee999ddd47689c4".to_string();
+    let request = PrimarySalesRequest::default();
 
     let api_key = dotenv::var("api_keys").unwrap();
     let left = primary_sales(&api_key, Some(request)).await.unwrap();
 
     let r = serde_json::to_string_pretty(&left).unwrap();
-    let right: Response = serde_json::from_str(&r).unwrap();
+    let right: PrimarySalesResponse = serde_json::from_str(&r).unwrap();
+    println!("{:#?}", right);
     assert_eq!(left, right);
 }

@@ -1,7 +1,6 @@
 //! # Metaplex Metadata
 //! POST `https://rest-api.hellomoon.io/v0/nft/mint_information`
 //! On-chain NFT Mint Information from the Metaplex Token Standard
-
 use super::{core_call, limit_is_zero, page_is_zero};
 use serde::{Deserialize, Serialize};
 
@@ -10,10 +9,10 @@ const METAPLEX_METADATA_API_URL: &str = "https://rest-api.hellomoon.io/v0/nft/mi
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
 pub struct MetaplexMetadataResponse {
     /// array of objects
-    data: Vec<MetaplexMetadata>,
+    data: Option<Vec<MetaplexMetadata>>,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
-    pagination_token: String,
+    pagination_token: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
@@ -21,13 +20,13 @@ pub struct MetaplexMetadata {
     /// Mint address of nft per the spl token program.
     /// Each NFT has a unique mint address within the collection.
     #[serde(rename = "nftMint")]
-    nft_mint: String,
+    nft_mint: Option<String>,
     /// Public key of address holding NFT metadata
     #[serde(rename = "nftMetadataAdress")]
-    nft_metadata_adress: String,
+    nft_metadata_adress: Option<String>,
     /// The NFT on chain metadata
     #[serde(rename = "nftMetadataJson")]
-    nft_metadata_json: NftMetadataJson,
+    nft_metadata_json: Option<NftMetadataJson>,
     /// The public key of the Collection NFT's Mint Account
     #[serde(rename = "nftCollectionMint")]
     nft_collection_mint: Option<String>,
@@ -39,14 +38,14 @@ pub struct MetaplexMetadata {
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
 pub struct NftMetadataJson {
     /// The on-chain name of the token, limited to 32 bytes
-    name: String,
+    name: Option<String>,
     /// The on-chain symbol of the token, limited to 10 bytes
-    symbol: String,
+    symbol: Option<String>,
     /// The URI of the token, limited to 200 bytes. This URI points to an off-chain JSON file that contains additional data following a certain standard.
-    uri: String,
+    uri: Option<String>,
     /// The royalties shared by the creators in basis points — i.e. 550 means 5.5%. Whilst this field is used by virtually all NFT marketplaces, it is not enforced by the Token Metadata program itself.
     #[serde(rename = "sellerFeeBasisPoints")]
-    seller_fee_basis_points: usize,
+    seller_fee_basis_points: Option<usize>,
     /// An array of creators and their share of the royalties. This array is limited to 5 creators.
     #[serde(skip_serializing_if = "Option::is_none")] // TODO, this I meet error.
     creators: Option<Vec<Creator>>,
@@ -55,11 +54,11 @@ pub struct NftMetadataJson {
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
 pub struct Creator {
     /// The publicKey of the creator
-    address: String,
+    address: Option<String>,
     /// A boolean indicating if the creator signed the NFT. It is important to check this field to ensure the authenticity of the creator.
-    verified: bool,
+    verified: Option<bool>,
     /// The share of the royalties that the creator gets. This is a number between 0 and 100. The sum of all shares must be 100.
-    share: usize,
+    share: Option<usize>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
@@ -95,7 +94,6 @@ pub async fn metaplex_metadata(
         api_key,
     )
     .await
-    .map_err(|_| anyhow::anyhow!("helloMoonCollectionId or nftMint must be provided in body"))
 }
 
 #[tokio::test]

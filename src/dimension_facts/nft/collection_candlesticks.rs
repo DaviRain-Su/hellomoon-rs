@@ -23,41 +23,41 @@ const COLLECTION_CANDLESTICKS_API: &str =
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct CollectionCandlesticksResponse {
     /// array of objects
-    data: Vec<CollectionCandlesticks>,
+    data: Option<Vec<CollectionCandlesticks>>,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
-    pagination_token: String,
+    pagination_token: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct CollectionCandlesticks {
     /// To find the correct helloMoonCollectionId, click here and search a collection name. This list is continuously updated.
     #[serde(rename = "helloMoonCollectionId")]
-    pub hello_moon_collection_id: String,
+    pub hello_moon_collection_id: Option<String>,
     /// The time granularity (period) of the candlestick: `ONE_MIN`, `FIVE_MIN`, `ONE_HOUR`, `ONE_DAY`, `ONE_WEEK`.
     /// For example, the ONE_MIN granularity will return a candlestick for every minute in the time period - as long as there is volume.
     ///
     /// `ONE_MIN` `FIVE_MIN` `ONE_HOUR` `ONE_DAY` `ONE_WEEK`
-    pub granularity: String,
+    pub granularity: Option<String>,
     /// Numeric identifier of a block describing the slot that the block was produced in
-    pub lastblockid: usize,
+    pub lastblockid: Option<usize>,
     /// Epoch start time of time period in seconds
     #[serde(rename = "startTime")]
-    pub start_time: usize,
+    pub start_time: Option<usize>,
     /// The high price of a candlestick is the highest price reached during the time period.
-    pub high: String,
+    pub high: Option<String>,
     /// The low price of a candlestick is the lowest price reached during the time period.
-    pub low: String,
+    pub low: Option<String>,
     /// The opening price of a candlestick is the price at which the period opened.
     /// It is usually represented by the top of the candlestick body, and is the starting point for the period's price action.
-    pub open: String,
+    pub open: Option<String>,
     /// The closing price of a candlestick is the price at which the period closed.
     /// It is usually represented by the bottom of the candlestick body, and is the ending point for the period's price action.
-    pub close: String,
+    pub close: Option<String>,
     /// The volume of a candlestick is the total number of coins or tokens traded during the period.
     /// It is usually represented by the size of the candlestick body, with larger bodies indicating higher volumes.
     /// Volume is an important indicator of market activity and can be used to confirm price movements and identify potential reversal points.
-    pub volume: String,
+    pub volume: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Default)]
@@ -136,6 +136,7 @@ pub async fn collection_candlesticks(
 #[tokio::test]
 async fn test_collection_candlesticks() {
     let mut request = CollectionCandlesticksRequest::default();
+    request.hello_moon_collection_id = "040de757c0d2b75dcee999ddd47689c4".to_string();
     request.limit = 1;
 
     let api_key = dotenv::var("api_keys").unwrap();
@@ -145,5 +146,6 @@ async fn test_collection_candlesticks() {
         .unwrap();
     let r = serde_json::to_string_pretty(&left).unwrap();
     let right: CollectionCandlesticksResponse = serde_json::from_str(&r).unwrap();
+    println!("{:#?}", right);
     assert_eq!(left, right);
 }

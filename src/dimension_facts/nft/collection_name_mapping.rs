@@ -1,5 +1,7 @@
-//! Collection Name Mapping
+//! # Collection Name Mapping
+//! 
 //! POST `https://rest-api.hellomoon.io/v0/nft/collection/name`
+//! 
 //! The Collection Name Mapping endpoint maps a unique Hello Moon helloMoonCollectionId to an unique NFT Collection Name.
 //!
 //! helloMoonCollectionId or collectionName is required to receive a successful query response.
@@ -13,23 +15,23 @@ const COLLECTION_NAME_MAPPING_API: &str = "https://rest-api.hellomoon.io/v0/nft/
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
 pub struct CollectionNameMappingResponse {
     /// array of objects
-    data: Vec<CollectionNameMapping>,
+    data: Option<Vec<CollectionNameMapping>>,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
-    pagination_token: String,
+    pagination_token: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
 pub struct CollectionNameMapping {
     /// The name of the collection
     #[serde(rename = "collectionName")]
-    collection_name: String,
+    collection_name: Option<String>,
     /// To find the correct helloMoonCollectionId, click here and search a collection name. This list is continuously updated.
     #[serde(rename = "helloMoonCollectionId")]
-    hello_moon_collection_id: String,
+    hello_moon_collection_id: Option<String>,
     /// Current volume of the collection in SOL (lamports) looking back 24 hours
     #[serde(rename = "currentVolumeSOL")]
-    current_volume_sol: String,
+    current_volume_sol: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
@@ -66,7 +68,6 @@ pub async fn collection_name_mapping(
         api_key,
     )
     .await
-    .map_err(|_| anyhow::anyhow!("helloMoonCollectionId or nftMint must be provided in body"))
 }
 
 #[tokio::test]
@@ -81,5 +82,6 @@ async fn test_collection_name_mapping() {
 
     let r = serde_json::to_string_pretty(&left).unwrap();
     let right: CollectionNameMappingResponse = serde_json::from_str(&r).unwrap();
+    println!("{:#?}", right);
     assert_eq!(left, right);
 }

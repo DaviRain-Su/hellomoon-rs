@@ -10,27 +10,26 @@
 use super::{core_call, limit_is_zero, page_is_zero};
 use serde::{Deserialize, Serialize};
 
-// https://rest-api.hellomoon.io/v0/nft/collection/mints
 const COLLECTION_MINT_MAPPING_API: &str = "https://rest-api.hellomoon.io/v0/nft/collection/mints";
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct CollectionMintMappingResponse {
     /// array of objects
-    data: Vec<CollectionMintMapping>,
+    data: Option<Vec<CollectionMintMapping>>,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
-    pagination_token: String,
+    pagination_token: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 struct CollectionMintMapping {
     /// To find the correct helloMoonCollectionId, click here and search a collection name. This list is continuously updated.
     #[serde(rename = "helloMoonCollectionId")]
-    hello_moon_collection_id: String,
+    hello_moon_collection_id: Option<String>,
     /// Mint address of nft per the spl token program.
     /// Each NFT has a unique mint address within the collection.
     #[serde(rename = "nftMint")]
-    nft_mint: String,
+    nft_mint: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
@@ -66,7 +65,6 @@ pub async fn collection_mint_mapping(
         api_key,
     )
     .await
-    .map_err(|_| anyhow::anyhow!("helloMoonCollectionId or nftMint must be provided in body"))
 }
 
 #[tokio::test]
@@ -81,5 +79,6 @@ async fn test_collection_mint_mapping() {
 
     let r = serde_json::to_string_pretty(&left).unwrap();
     let right: CollectionMintMappingResponse = serde_json::from_str(&r).unwrap();
+    println!("{:#?}", right);
     assert_eq!(left, right);
 }
