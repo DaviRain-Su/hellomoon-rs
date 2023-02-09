@@ -7,9 +7,19 @@ const API_URL: &str = "";
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
 pub struct Request {}
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
-pub struct Response {}
 
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+pub struct Response {
+    /// array of objects
+    data: Vec<IResponse>,
+    #[serde(rename = "paginationToken")]
+    pagination_token: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+pub struct IResponse {
+
+}
 pub async fn example(request: Option<Request>, api_key: &str) -> anyhow::Result<Response> {
     core_call::<Request, Response>(request, API_URL, api_key).await
 }
