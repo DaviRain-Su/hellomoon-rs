@@ -1,5 +1,5 @@
 //! # Listing Status
-//! 
+//!
 //! POST  `https://rest-api.hellomoon.io/v0/nft/listing-status`
 //! Track and verify the NFT Listing Status by the NFT collection, NFT marketplace, or a single NFT.
 //!
@@ -13,7 +13,7 @@
 //! MEv1 (Magic Eden v1)
 //! MEv2 (Magic Eden v2)
 //!
-use super::{core_call, limit_is_zero, page_is_zero};
+use crate::{core_call, limit_is_zero, page_is_zero};
 use serde::{Deserialize, Serialize};
 
 const LISTING_STATUS_API_URL: &str = "https://rest-api.hellomoon.io/v0/nft/listing-status";

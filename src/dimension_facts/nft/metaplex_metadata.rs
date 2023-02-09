@@ -1,7 +1,7 @@
 //! # Metaplex Metadata
 //! POST `https://rest-api.hellomoon.io/v0/nft/mint_information`
 //! On-chain NFT Mint Information from the Metaplex Token Standard
-use super::{core_call, limit_is_zero, page_is_zero};
+use crate::{core_call, limit_is_zero, page_is_zero};
 use serde::{Deserialize, Serialize};
 
 const METAPLEX_METADATA_API_URL: &str = "https://rest-api.hellomoon.io/v0/nft/mint_information";

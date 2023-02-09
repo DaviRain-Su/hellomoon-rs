@@ -15,7 +15,7 @@
 //!
 use serde::{Deserialize, Serialize};
 
-use super::{core_call, limit_is_zero, page_is_zero};
+use crate::{core_call, limit_is_zero, page_is_zero};
 
 const COLLECTION_CANDLESTICKS_API: &str =
     "https://rest-api.hellomoon.io/v0/collection/listing/candlesticks";

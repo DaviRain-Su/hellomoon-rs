@@ -6,7 +6,7 @@
 //! View key data fields such as what NFT was minted, the mintProgram or launchpad, who minted the NFT, and the amount it cost to mint.
 //!
 //! Data goes back 30 days for supported launchpads and mint programs.
-use super::{core_call, limit_is_zero, page_is_zero};
+use crate::{core_call, limit_is_zero, page_is_zero};
 use serde::{Deserialize, Serialize};
 
 const PRIMARY_SALES_API_URL: &str = "https://rest-api.hellomoon.io/v0/nft/sales/primary";

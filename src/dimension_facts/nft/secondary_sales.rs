@@ -7,7 +7,7 @@
 //! For example, the Primary Sales endpoint visualizes who minted the NFT and the program that was used. While the Secondary Sales endpoint visualizes who the minter sold the NFT to and the price it was transacted at.
 //!
 //! Data goes back 30 days for supported launchpads and mint programs.
-use super::{core_call, limit_is_zero, page_is_zero};
+use crate::{core_call, limit_is_zero, page_is_zero};
 use serde::{Deserialize, Serialize};
 
 const SECONDARY_SALES_API_URL: &str = "https://rest-api.hellomoon.io/v0/nft/sales/secondary";

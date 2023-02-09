@@ -7,7 +7,7 @@
 //! helloMoonCollectionId or nftMint is required to receive a successful query response.
 //!
 //!
-use super::{core_call, limit_is_zero, page_is_zero};
+use crate::{core_call, limit_is_zero, page_is_zero};
 use serde::{Deserialize, Serialize};
 
 const COLLECTION_MINT_MAPPING_API: &str = "https://rest-api.hellomoon.io/v0/nft/collection/mints";

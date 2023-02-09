@@ -3,7 +3,7 @@
 //！POST `https://rest-api.hellomoon.io/v0/nft/mints-by-owner`
 //!
 //！All NFT Mints owned by a wallet with on chain attached
-use super::{core_call, limit_is_zero, page_is_zero};
+use crate::{core_call, limit_is_zero, page_is_zero};
 use serde::{Deserialize, Serialize};
 
 const MINTS_BY_OWNER_API_URL: &str = "https://rest-api.hellomoon.io/v0/nft/mints-by-owner";

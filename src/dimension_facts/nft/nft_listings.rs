@@ -8,7 +8,7 @@
 //! So you know what is really happening.
 //!
 //! Data goes back 30 days from all support markets.
-use super::{core_call, limit_is_zero, page_is_zero};
+use crate::{core_call, limit_is_zero, page_is_zero};
 use serde::{Deserialize, Serialize};
 
 const NFT_LISTING_API_URL: &str = "https://rest-api.hellomoon.io/v0/nft/listings";
