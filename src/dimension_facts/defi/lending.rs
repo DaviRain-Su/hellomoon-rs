@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::{core_call, limit_is_zero, page_is_zero};
 
-const API_URL: &str = "";
+const API_URL: &str = "https://rest-api.hellomoon.io/v0/defi/lending";
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
 pub struct Request {
@@ -35,6 +35,7 @@ pub struct Request {
     #[serde(skip_serializing_if = "page_is_zero")]
     page: usize,
     #[serde(rename = "paginationToken")]
+    #[serde(skip_serializing_if = "String::is_empty")]
     pagination_token: String,
 }
 
@@ -54,14 +55,37 @@ impl Default for ActionType {
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Response {
     /// array of objects
-    data: Vec<IResponse>,
+    data: Option<Vec<IResponse>>,
     #[serde(rename = "paginationToken")]
-    pagination_token: String,
+    pagination_token: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct IResponse {
-    
+    #[serde(rename = "programName")]
+    program_name: Option<String>,
+    #[serde(rename = "programId")]
+    program_id: Option<String>,
+    #[serde(rename = "actionType")]
+    action_type: Option<String>,
+    #[serde(rename = "userAccount")]
+    user_account: Option<String>,
+    mint: Option<String>,
+    amount: Option<String>,
+    #[serde(rename = "transactionId")]
+    transaction_id: Option<String>,
+    #[serde(rename = "blockTime")]
+    block_time: Option<String>,
+    #[serde(rename = "instructionName")]
+    instruction_name: Option<String>,
+    #[serde(rename = "instructionId")]
+    instruction_id: Option<String>,
+    #[serde(rename = "instructionPosition")]
+    instruction_position: Option<isize>,
+    #[serde(rename = "subInstructionPosition")]
+    sub_instruction_position: Option<isize>,
+    #[serde(rename = "instructionOrdinal")]
+    instruction_ordinal: Option<isize>,
 }
 
 pub async fn example(request: Option<Request>, api_key: &str) -> anyhow::Result<Response> {
@@ -69,7 +93,7 @@ pub async fn example(request: Option<Request>, api_key: &str) -> anyhow::Result<
 }
 
 #[tokio::test]
-async fn test_example() {
+async fn test_lending_example() {
     let request = Request::default();
 
     let api_key = dotenv::var("api_keys").unwrap();
