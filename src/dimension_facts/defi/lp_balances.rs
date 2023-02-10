@@ -1,9 +1,9 @@
 //! LP Balances
-//! 
+//!
 //! POST `https://rest-api.hellomoon.io/v0/defi/liquidity-pools/balances`
 //!  
 //! Current balance of Liquidity Pools
-//! 
+//!
 use serde::{Deserialize, Serialize};
 
 use crate::{core_call, limit_is_zero, page_is_zero};

@@ -7,7 +7,6 @@ const API_URL: &str = "";
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
 pub struct Request {}
 
-
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Response {
     /// array of objects

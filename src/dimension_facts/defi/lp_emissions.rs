@@ -18,7 +18,6 @@ pub struct Request {
     pagination_token: String,
 }
 
-
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Response {
     /// array of objects
@@ -28,9 +27,7 @@ pub struct Response {
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
-pub struct IResponse {
-
-}
+pub struct IResponse {}
 pub async fn example(request: Option<Request>, api_key: &str) -> anyhow::Result<Response> {
     core_call::<Request, Response>(request, API_URL, api_key).await
 }

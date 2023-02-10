@@ -42,7 +42,7 @@ pub struct Request {
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub enum ActionType {
     #[serde(rename = "borrow")]
-    Borrow, 
+    Borrow,
     #[serde(rename = "repay")]
     Repay,
 }
