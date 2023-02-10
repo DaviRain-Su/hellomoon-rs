@@ -45,10 +45,10 @@ pub struct CollectionMintMappingRequest {
     nft_mint: String,
     /// The number of results to return per page
     #[serde(skip_serializing_if = "limit_is_zero")]
-    limit: usize,
+    limit: isize,
     #[serde(skip_serializing_if = "page_is_zero")]
     /// The page number to return
-    page: usize,
+    page: isize,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
     #[serde(skip_serializing_if = "String::is_empty")]

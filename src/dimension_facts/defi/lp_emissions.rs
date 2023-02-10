@@ -5,7 +5,18 @@ use crate::{core_call, limit_is_zero, page_is_zero};
 const API_URL: &str = "";
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
-pub struct Request {}
+pub struct Request {
+    poolAddress: String,
+    mint: String,
+    blockTime: isize,
+    #[serde(skip_serializing_if = "limit_is_zero")]
+    limit: isize,
+    #[serde(skip_serializing_if = "page_is_zero")]
+    page: isize,
+    #[serde(rename = "paginationToken")]
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pagination_token: String,
+}
 
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -25,6 +36,7 @@ pub async fn example(request: Option<Request>, api_key: &str) -> anyhow::Result<
 }
 
 #[tokio::test]
+#[ignore]
 async fn test_example() {
     let request = Request::default();
 

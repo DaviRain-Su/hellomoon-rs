@@ -95,10 +95,10 @@ pub struct SecondarySalesRequest {
     block_id: String,
     /// The number of results to return per page
     #[serde(skip_serializing_if = "limit_is_zero")]
-    limit: usize,
+    limit: isize,
     /// The page number to return
     #[serde(skip_serializing_if = "page_is_zero")]
-    page: usize,
+    page: isize,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
     #[serde(skip_serializing_if = "String::is_empty")]

@@ -56,7 +56,7 @@ pub struct MetadataJson {
     uri: Option<String>,
     /// The royalties shared by the creators in basis points — i.e. 550 means 5.5%. Whilst this field is used by virtually all NFT marketplaces, it is not enforced by the Token Metadata program itself.
     #[serde(rename = "sellerFeeBasisPoints")]
-    seller_fee_basis_points: Option<usize>,
+    seller_fee_basis_points: Option<isize>,
     /// An array of creators and their share of the royalties. This array is limited to 5 creators.
     creators: Option<Vec<Creator>>,
     /// This field optionally links to the Mint address of another NFT that acts as a Collection NFT.
@@ -70,7 +70,7 @@ pub struct Creator {
     /// A boolean indicating if the creator signed the NFT. It is important to check this field to ensure the authenticity of the creator.
     verified: Option<bool>,
     /// The share of the royalties that the creator gets. This is a number between 0 and 100. The sum of all shares must be 100.
-    share: Option<usize>,
+    share: Option<isize>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
@@ -107,11 +107,11 @@ pub struct MintsByOwnerRequest {
 
     /// The number of results to return per page
     #[serde(skip_serializing_if = "limit_is_zero")]
-    limit: usize,
+    limit: isize,
 
     /// The page number to return
     #[serde(skip_serializing_if = "page_is_zero")]
-    page: usize,
+    page: isize,
 
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]

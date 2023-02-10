@@ -31,9 +31,9 @@ pub struct Request {
     #[serde(skip_serializing_if = "String::is_empty")]
     mint: String,
     #[serde(skip_serializing_if = "limit_is_zero")]
-    limit: usize,
+    limit: isize,
     #[serde(skip_serializing_if = "page_is_zero")]
-    page: usize,
+    page: isize,
     #[serde(rename = "paginationToken")]
     #[serde(skip_serializing_if = "String::is_empty")]
     pagination_token: String,

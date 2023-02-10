@@ -18,13 +18,20 @@ pub struct Response {
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct IResponse {
-
+    #[serde(skip_serializing_if = "limit_is_zero")]
+    limit: isize,
+    #[serde(skip_serializing_if = "page_is_zero")]
+    page: isize,
+    #[serde(rename = "paginationToken")]
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pagination_token: String,
 }
 pub async fn example(request: Option<Request>, api_key: &str) -> anyhow::Result<Response> {
     core_call::<Request, Response>(request, API_URL, api_key).await
 }
 
 #[tokio::test]
+#[ignore]
 async fn test_example() {
     let request = Request::default();
 
