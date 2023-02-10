@@ -45,7 +45,7 @@ pub struct NftMetadataJson {
     uri: Option<String>,
     /// The royalties shared by the creators in basis points — i.e. 550 means 5.5%. Whilst this field is used by virtually all NFT marketplaces, it is not enforced by the Token Metadata program itself.
     #[serde(rename = "sellerFeeBasisPoints")]
-    seller_fee_basis_points: Option<isize>,
+    seller_fee_basis_points: Option<usize>,
     /// An array of creators and their share of the royalties. This array is limited to 5 creators.
     #[serde(skip_serializing_if = "Option::is_none")] // TODO, this I meet error.
     creators: Option<Vec<Creator>>,
@@ -58,7 +58,7 @@ pub struct Creator {
     /// A boolean indicating if the creator signed the NFT. It is important to check this field to ensure the authenticity of the creator.
     verified: Option<bool>,
     /// The share of the royalties that the creator gets. This is a number between 0 and 100. The sum of all shares must be 100.
-    share: Option<isize>,
+    share: Option<usize>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
@@ -74,10 +74,10 @@ pub struct MetaplexMetadataRequest {
     nft_collection_mint: String,
     /// The number of results to return per page
     #[serde(skip_serializing_if = "limit_is_zero")]
-    limit: isize,
+    limit: usize,
     /// The page number to return
     #[serde(skip_serializing_if = "page_is_zero")]
-    page: isize,
+    page: usize,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
     #[serde(skip_serializing_if = "String::is_empty")]

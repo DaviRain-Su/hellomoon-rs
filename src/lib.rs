@@ -40,14 +40,14 @@ pub async fn core_call<Request: Serialize, Response: DeserializeOwned>(
     Ok(response)
 }
 
-pub fn limit_is_zero(value: &isize) -> bool {
+pub fn limit_is_zero(value: &usize) -> bool {
     is_zero(value)
 }
 
-pub fn page_is_zero(value: &isize) -> bool {
+pub fn page_is_zero(value: &usize) -> bool {
     is_zero(value)
 }
 
-pub fn is_zero(value: &isize) -> bool {
-    *value == isize::MIN
+pub fn is_zero(value: &usize) -> bool {
+    *value == usize::MIN
 }

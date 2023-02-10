@@ -40,10 +40,10 @@ pub struct CollectionCandlesticks {
     /// `ONE_MIN` `FIVE_MIN` `ONE_HOUR` `ONE_DAY` `ONE_WEEK`
     pub granularity: Option<String>,
     /// Numeric identifier of a block describing the slot that the block was produced in
-    pub lastblockid: Option<isize>,
+    pub lastblockid: Option<usize>,
     /// Epoch start time of time period in seconds
     #[serde(rename = "startTime")]
-    pub start_time: Option<isize>,
+    pub start_time: Option<usize>,
     /// The high price of a candlestick is the highest price reached during the time period.
     pub high: Option<String>,
     /// The low price of a candlestick is the lowest price reached during the time period.
@@ -79,10 +79,10 @@ pub struct CollectionCandlesticksRequest {
     pub granularity: Option<Granularity>,
     /// The number of results to return per page
     #[serde(skip_serializing_if = "limit_is_zero")]
-    pub limit: isize,
+    pub limit: usize,
     /// The page number to return
     #[serde(skip_serializing_if = "page_is_zero")]
-    pub page: isize,
+    pub page: usize,
     /// The pagination token to use to keep your position in the results
     #[serde(skip_serializing_if = "String::is_empty")]
     #[serde(rename = "paginationToken")]

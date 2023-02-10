@@ -1,18 +1,27 @@
+//! LP Emissions
+//! POST https://rest-api.hellomoon.io/v0/defi/liquidity-pools/emissions
+//! Current reward emissions per token and LP pool for programs
+
 use serde::{Deserialize, Serialize};
 
-use crate::{core_call, limit_is_zero, page_is_zero};
+use crate::{core_call, limit_is_zero, page_is_zero, is_zero};
 
-const API_URL: &str = "";
+const API_URL: &str = "https://rest-api.hellomoon.io/v0/defi/liquidity-pools/emissions";
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
 pub struct Request {
-    poolAddress: String,
+    #[serde(rename = "poolAddress")]
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pool_address: String,
+    #[serde(skip_serializing_if = "String::is_empty")]
     mint: String,
-    blockTime: isize,
+    #[serde(rename = "blockTime")]
+    #[serde(skip_serializing_if = "is_zero")]
+    block_time: usize,
     #[serde(skip_serializing_if = "limit_is_zero")]
-    limit: isize,
+    limit: usize,
     #[serde(skip_serializing_if = "page_is_zero")]
-    page: isize,
+    page: usize,
     #[serde(rename = "paginationToken")]
     #[serde(skip_serializing_if = "String::is_empty")]
     pagination_token: String,
@@ -21,20 +30,37 @@ pub struct Request {
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Response {
     /// array of objects
-    data: Vec<IResponse>,
+    data: Option<Vec<IResponse>>,
     #[serde(rename = "paginationToken")]
-    pagination_token: String,
+    pagination_token: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
-pub struct IResponse {}
+pub struct IResponse {
+    #[serde(rename = "blockTime")]
+    block_time: Option<String>,
+    #[serde(rename = "blockId")]
+    block_id: Option<String>,
+    #[serde(rename = "transactionId")]
+    transaction_id: Option<String>,
+    #[serde(rename = "poolAddress")]
+    pool_address: Option<String>,
+    mint: Option<String>,
+    #[serde(rename = "emissionsPerDay")]
+    emissions_per_day: Option<String>,
+    #[serde(rename = "emissionsPerDayConverted")]
+    emissions_per_day_converted: Option<String>,
+    #[serde(rename = "mintName")]
+    mint_aame: Option<String>,
+    #[serde(rename = "rewardVault")]
+    reward_vault: Option<String>,
+}
 pub async fn example(request: Option<Request>, api_key: &str) -> anyhow::Result<Response> {
     core_call::<Request, Response>(request, API_URL, api_key).await
 }
 
 #[tokio::test]
-#[ignore]
-async fn test_example() {
+async fn test_lp_emissions_example() {
     let request = Request::default();
 
     let api_key = dotenv::var("api_keys").unwrap();

@@ -7,9 +7,9 @@ const API_URL: &str = "";
 #[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
 pub struct Request {
     #[serde(skip_serializing_if = "limit_is_zero")]
-    limit: isize,
+    limit: usize,
     #[serde(skip_serializing_if = "page_is_zero")]
-    page: isize,
+    page: usize,
     #[serde(rename = "paginationToken")]
     #[serde(skip_serializing_if = "String::is_empty")]
     pagination_token: String,
@@ -18,9 +18,9 @@ pub struct Request {
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Response {
     /// array of objects
-    data: Vec<IResponse>,
+    data: Option<Vec<IResponse>>,
     #[serde(rename = "paginationToken")]
-    pagination_token: String,
+    pagination_token: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]

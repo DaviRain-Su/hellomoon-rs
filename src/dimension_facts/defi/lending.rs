@@ -31,9 +31,9 @@ pub struct Request {
     #[serde(skip_serializing_if = "String::is_empty")]
     mint: String,
     #[serde(skip_serializing_if = "limit_is_zero")]
-    limit: isize,
+    limit: usize,
     #[serde(skip_serializing_if = "page_is_zero")]
-    page: isize,
+    page: usize,
     #[serde(rename = "paginationToken")]
     #[serde(skip_serializing_if = "String::is_empty")]
     pagination_token: String,
@@ -81,11 +81,11 @@ pub struct IResponse {
     #[serde(rename = "instructionId")]
     instruction_id: Option<String>,
     #[serde(rename = "instructionPosition")]
-    instruction_position: Option<isize>,
+    instruction_position: Option<usize>,
     #[serde(rename = "subInstructionPosition")]
     sub_instruction_position: Option<isize>,
     #[serde(rename = "instructionOrdinal")]
-    instruction_ordinal: Option<isize>,
+    instruction_ordinal: Option<usize>,
 }
 
 pub async fn example(request: Option<Request>, api_key: &str) -> anyhow::Result<Response> {
