@@ -16,14 +16,14 @@ Hello Moon Api reference implement by Rust.
   - [x] Listing Status
   - [x] NFT Listings
   - [x] Metaplex Metadata
-  - [ ] Mints By Owner
-  - [ ] Primary Sales
-  - [ ] Secondary Sales
+  - [x] Mints By Owner
+  - [x] Primary Sales
+  - [x] Secondary Sales
 - DEFI
-  - [ ] Lending
-  - [ ] LP Balances
-  - [ ] LP Emissions
-  - [ ] LP Metadata
+  - [x] Lending
+  - [x] LP Balances
+  - [x] LP Emissions
+  - [x] LP Metadata
   - [ ] LP Withdrawal/Deposit
   - [ ] Swaps
   - [ ] Transactions by User
