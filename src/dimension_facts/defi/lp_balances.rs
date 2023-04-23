@@ -1,4 +1,4 @@
-//! LP Balances
+//! # LP Balances
 //!
 //! POST `https://rest-api.hellomoon.io/v0/defi/liquidity-pools/balances`
 //!

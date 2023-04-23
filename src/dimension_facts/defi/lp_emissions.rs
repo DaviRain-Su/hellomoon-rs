@@ -1,7 +1,9 @@
 //! LP Emissions
+//!
 //! POST https://rest-api.hellomoon.io/v0/defi/liquidity-pools/emissions
+//!
 //! Current reward emissions per token and LP pool for programs
-
+//!
 use crate::HELLOMOON_ROOT_URL;
 use crate::{core_call, is_zero, limit_is_zero, page_is_zero};
 use serde::{Deserialize, Serialize};
