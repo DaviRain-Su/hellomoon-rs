@@ -6,9 +6,11 @@ pub mod dimension_facts;
 pub mod hello_moon_pub_api;
 pub mod summary;
 
+pub const HELLOMOON_ROOT_URL: &str = "https://rest-api.hellomoon.io/v0";
+
 pub async fn core_call<Request: Serialize, Response: DeserializeOwned>(
     request: Option<Request>,
-    api_url: &str,
+    api_url: String,
     api_key: &str,
 ) -> anyhow::Result<Response> {
     let response = if let Some(request) = request {

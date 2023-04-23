@@ -151,8 +151,12 @@ pub async fn primary_sales(
     api_key: &str,
     request: Option<PrimarySalesRequest>,
 ) -> anyhow::Result<PrimarySalesResponse> {
-    core_call::<PrimarySalesRequest, PrimarySalesResponse>(request, PRIMARY_SALES_API_URL, api_key)
-        .await
+    core_call::<PrimarySalesRequest, PrimarySalesResponse>(
+        request,
+        PRIMARY_SALES_API_URL.to_string(),
+        api_key,
+    )
+    .await
 }
 
 #[tokio::test]

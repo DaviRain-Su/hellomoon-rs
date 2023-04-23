@@ -1,4 +1,4 @@
-pub mod lending;
+pub mod defi_lending;
 pub mod lp_balances;
 pub mod lp_emissions;
 pub mod lp_metadata;

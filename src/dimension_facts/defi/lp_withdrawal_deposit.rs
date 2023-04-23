@@ -23,11 +23,10 @@ pub struct Response {
     pagination_token: Option<String>,
 }
 
-
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct IResponse {}
 pub async fn example(request: Option<Request>, api_key: &str) -> anyhow::Result<Response> {
-    core_call::<Request, Response>(request, API_URL, api_key).await
+    core_call::<Request, Response>(request, API_URL.to_string(), api_key).await
 }
 
 #[tokio::test]

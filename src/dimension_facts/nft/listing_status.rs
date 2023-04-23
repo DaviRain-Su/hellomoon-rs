@@ -149,7 +149,7 @@ pub async fn listing_status(
 ) -> anyhow::Result<ListingStatusResponse> {
     core_call::<ListingStatusRequest, ListingStatusResponse>(
         request,
-        LISTING_STATUS_API_URL,
+        LISTING_STATUS_API_URL.to_string(),
         api_key,
     )
     .await

@@ -147,8 +147,12 @@ pub async fn nft_listings(
     api_key: &str,
     request: Option<NftListingsRequest>,
 ) -> anyhow::Result<NftListingsResponse> {
-    core_call::<NftListingsRequest, NftListingsResponse>(request, NFT_LISTING_API_URL, api_key)
-        .await
+    core_call::<NftListingsRequest, NftListingsResponse>(
+        request,
+        NFT_LISTING_API_URL.to_string(),
+        api_key,
+    )
+    .await
 }
 
 #[tokio::test]

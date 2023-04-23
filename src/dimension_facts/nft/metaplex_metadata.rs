@@ -90,7 +90,7 @@ pub async fn metaplex_metadata(
 ) -> anyhow::Result<MetaplexMetadataResponse> {
     core_call::<MetaplexMetadataRequest, MetaplexMetadataResponse>(
         request,
-        METAPLEX_METADATA_API_URL,
+        METAPLEX_METADATA_API_URL.to_string(),
         api_key,
     )
     .await

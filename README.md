@@ -11,9 +11,9 @@ Hello Moon Api reference implement by Rust.
 
 - DEFI
     - [x] DeFi Lending
-    - [x] LP Balances
-    - [x] LP Emissions
-    - [x] LP Metadata
+    - [ ] LP Balances
+    - [ ] LP Emissions
+    - [ ] LP Metadata
     - [ ] LP Withdrawal/Deposit
     - [ ] DeFi Swaps
     - [ ] Transactions by User (historical)
@@ -49,15 +49,15 @@ Hello Moon Api reference implement by Rust.
     - [ ] Primary Sales
     - [ ] Secondary Sales
     - [ ] --
-    - [x] Collection Candlesticks
-    - [x] Collection Mint Mapping
-    - [x] Collection Name Mapping
-    - [x] Listing Status
-    - [x] NFT Listings
-    - [x] Metaplex Metadata
-    - [x] Mints By Owner
-    - [x] Primary Sales
-    - [x] Secondary Sales
+    - [ ] Collection Candlesticks
+    - [ ] Collection Mint Mapping
+    - [ ] Collection Name Mapping
+    - [ ] Listing Status
+    - [ ] NFT Listings
+    - [ ] Metaplex Metadata
+    - [ ] Mints By Owner
+    - [ ] Primary Sales
+    - [ ] Secondary Sales
 
 
 ## DIMENSION / FACTS (PROTOCOLS)

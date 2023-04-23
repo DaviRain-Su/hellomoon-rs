@@ -4,7 +4,7 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::{core_call, limit_is_zero, page_is_zero, is_zero};
+use crate::{core_call, is_zero, limit_is_zero, page_is_zero};
 
 const API_URL: &str = "https://rest-api.hellomoon.io/v0/defi/liquidity-pools/emissions";
 
@@ -56,7 +56,7 @@ pub struct IResponse {
     reward_vault: Option<String>,
 }
 pub async fn example(request: Option<Request>, api_key: &str) -> anyhow::Result<Response> {
-    core_call::<Request, Response>(request, API_URL, api_key).await
+    core_call::<Request, Response>(request, API_URL.to_string(), api_key).await
 }
 
 #[tokio::test]

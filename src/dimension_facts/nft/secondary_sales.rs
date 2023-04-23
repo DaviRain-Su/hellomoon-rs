@@ -156,7 +156,7 @@ pub async fn scondary_sales(
 ) -> anyhow::Result<SecondarySalesResponse> {
     core_call::<SecondarySalesRequest, SecondarySalesResponse>(
         request,
-        SECONDARY_SALES_API_URL,
+        SECONDARY_SALES_API_URL.to_string(),
         api_key,
     )
     .await

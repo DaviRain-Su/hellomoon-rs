@@ -61,7 +61,7 @@ pub async fn collection_mint_mapping(
 ) -> anyhow::Result<CollectionMintMappingResponse> {
     core_call::<CollectionMintMappingRequest, CollectionMintMappingResponse>(
         request,
-        COLLECTION_MINT_MAPPING_API,
+        COLLECTION_MINT_MAPPING_API.to_string(),
         api_key,
     )
     .await

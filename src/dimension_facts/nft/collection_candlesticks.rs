@@ -127,7 +127,7 @@ pub async fn collection_candlesticks(
 ) -> anyhow::Result<CollectionCandlesticksResponse> {
     core_call::<CollectionCandlesticksRequest, CollectionCandlesticksResponse>(
         request,
-        COLLECTION_CANDLESTICKS_API,
+        COLLECTION_CANDLESTICKS_API.to_string(),
         api_key,
     )
     .await

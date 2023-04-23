@@ -2,7 +2,7 @@
 //! POST
 //! https://rest-api.hellomoon.io/v0/defi/liquidity-pools/metadata
 //! Metadata on Liquidity Pools such as pool name and token names
-//! 
+//!
 use serde::{Deserialize, Serialize};
 
 use crate::{core_call, limit_is_zero, page_is_zero};
@@ -65,7 +65,7 @@ pub struct IResponse {
     token_account_b: Option<String>,
 }
 pub async fn example(request: Option<Request>, api_key: &str) -> anyhow::Result<Response> {
-    core_call::<Request, Response>(request, API_URL, api_key).await
+    core_call::<Request, Response>(request, API_URL.to_string(), api_key).await
 }
 
 #[tokio::test]

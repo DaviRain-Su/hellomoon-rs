@@ -123,8 +123,12 @@ pub async fn mints_by_owners(
     api_key: &str,
     request: Option<MintsByOwnerRequest>,
 ) -> anyhow::Result<MintsByOwnerResponse> {
-    core_call::<MintsByOwnerRequest, MintsByOwnerResponse>(request, MINTS_BY_OWNER_API_URL, api_key)
-        .await
+    core_call::<MintsByOwnerRequest, MintsByOwnerResponse>(
+        request,
+        MINTS_BY_OWNER_API_URL.to_string(),
+        api_key,
+    )
+    .await
 }
 
 #[tokio::test]

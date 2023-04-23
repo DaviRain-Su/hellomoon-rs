@@ -64,7 +64,7 @@ pub async fn collection_name_mapping(
 ) -> anyhow::Result<CollectionNameMappingResponse> {
     core_call::<CollectionNameMappingRequest, CollectionNameMappingResponse>(
         request,
-        COLLECTION_NAME_MAPPING_API,
+        COLLECTION_NAME_MAPPING_API.to_string(),
         api_key,
     )
     .await
