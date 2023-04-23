@@ -109,5 +109,5 @@ async fn test_lp_withdrawal_deposit() {
         .await
         .unwrap();
 
-    println!("{:#?}", left);
+    println!("{:?}", left);
 }
