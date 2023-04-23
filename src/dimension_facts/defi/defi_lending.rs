@@ -133,24 +133,16 @@ pub async fn defi_lending(
     request: Option<DefiLendingRequest>,
     api_key: &str,
 ) -> anyhow::Result<DefiLendingResponse> {
-    core_call::<DefiLendingRequest, DefiLendingResponse>(
-        request,
-        format!("{}{}", HELLOMOON_ROOT_URL, "/defi/lending"),
-        api_key,
-    )
-    .await
+    let api_url = format!("{}{}", HELLOMOON_ROOT_URL, "/defi/lending");
+    core_call::<DefiLendingRequest, DefiLendingResponse>(request, api_url, api_key).await
 }
 
 pub async fn defi_lending_return_json_value(
     request: Option<DefiLendingRequest>,
     api_key: &str,
 ) -> anyhow::Result<serde_json::Value> {
-    core_call::<DefiLendingRequest, serde_json::Value>(
-        request,
-        format!("{}{}", HELLOMOON_ROOT_URL, "/defi/lending"),
-        api_key,
-    )
-    .await
+    let api_url = format!("{}{}", HELLOMOON_ROOT_URL, "/defi/lending");
+    core_call::<DefiLendingRequest, serde_json::Value>(request, api_url, api_key).await
 }
 
 #[tokio::test]

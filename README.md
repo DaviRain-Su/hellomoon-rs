@@ -11,8 +11,8 @@ Hello Moon Api reference implement by Rust.
 
 - DEFI
     - [x] [DeFi Lending](https://docs.hellomoon.io/reference/post_v0-defi-lending)
-    - [ ] LP Balances
-    - [ ] LP Emissions
+    - [x] [LP Balances](https://docs.hellomoon.io/reference/post_v0-defi-liquidity-pools-balances)
+    - [x] [LP Emissions](https://docs.hellomoon.io/reference/post_v0-defi-liquidity-pools-emissions)
     - [ ] LP Metadata
     - [ ] LP Withdrawal/Deposit
     - [ ] DeFi Swaps
