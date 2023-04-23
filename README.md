@@ -10,7 +10,7 @@ Hello Moon Api reference implement by Rust.
 ## Dimension/Facts
 
 - DEFI
-    - [x] DeFi Lending
+    - [x] [DeFi Lending](https://docs.hellomoon.io/reference/post_v0-defi-lending)
     - [ ] LP Balances
     - [ ] LP Emissions
     - [ ] LP Metadata
