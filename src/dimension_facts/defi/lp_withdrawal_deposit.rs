@@ -101,6 +101,7 @@ pub async fn lp_withdrawal_deposit_returen_json_value(
 
 #[tokio::test]
 async fn test_lp_withdrawal_deposit() {
+    use serde_json::json;
     let request = LpWithdrawalDepositRequest::default();
 
     let api_key = dotenv::var("api_keys").unwrap();
@@ -109,5 +110,5 @@ async fn test_lp_withdrawal_deposit() {
         .await
         .unwrap();
 
-    println!("{:?}", left);
+    println!("{}", crate::pretty_json(left));
 }

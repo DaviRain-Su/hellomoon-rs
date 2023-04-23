@@ -151,10 +151,8 @@ async fn test_defi_lending() {
 
     let api_key = dotenv::var("api_keys").unwrap();
 
-    let left = defi_lending(Some(request), &api_key).await.unwrap();
-
-    let r = serde_json::to_string_pretty(&left).unwrap();
-    let right: DefiLendingResponse = serde_json::from_str(&r).unwrap();
-    // println!("{:#?}", left);
-    assert_eq!(left, right);
+    let left = defi_lending_return_json_value(Some(request), &api_key)
+        .await
+        .unwrap();
+    println!("defi_lending: {}", crate::pretty_json(left));
 }

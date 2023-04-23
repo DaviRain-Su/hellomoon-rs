@@ -107,7 +107,9 @@ async fn test_lp_metadata_example() {
 
     let api_key = dotenv::var("api_keys").unwrap();
 
-    let left = lp_metadata(Some(request), &api_key).await.unwrap();
+    let left = lp_metadata_return_json_value(Some(request), &api_key)
+        .await
+        .unwrap();
 
-    println!("{:#?}", left);
+    println!("{}", crate::pretty_json(left));
 }

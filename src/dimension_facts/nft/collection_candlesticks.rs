@@ -13,6 +13,8 @@
 //! The low is the lowest price reached during the period
 //! The close is the price at which the period closed
 //!
+use std::default;
+
 use serde::{Deserialize, Serialize};
 
 use crate::{core_call, limit_is_zero, page_is_zero};
@@ -89,8 +91,9 @@ pub struct CollectionCandlesticksRequest {
     pub pagination_token: String,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub enum Granularity {
+    #[default]
     #[serde(rename = "ONE_MIN")]
     OneMin,
     #[serde(rename = "FIVE_MIN")]
@@ -101,11 +104,6 @@ pub enum Granularity {
     OneDay,
     #[serde(rename = "ONE_WEEK")]
     OneWeek,
-}
-impl Default for Granularity {
-    fn default() -> Self {
-        Granularity::OneMin
-    }
 }
 
 fn granularity_is_empty(value: &Option<Granularity>) -> bool {

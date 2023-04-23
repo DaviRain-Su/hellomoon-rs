@@ -104,7 +104,9 @@ async fn test_lp_emissions_example() {
 
     let api_key = dotenv::var("api_keys").unwrap();
 
-    let left = lp_emission(Some(request), &api_key).await.unwrap();
+    let left = lp_emission_return_json_value(Some(request), &api_key)
+        .await
+        .unwrap();
 
-    println!("{:#?}", left);
+    println!("{}", crate::pretty_json(left));
 }

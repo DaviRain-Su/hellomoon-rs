@@ -53,3 +53,8 @@ pub fn page_is_zero(value: &usize) -> bool {
 pub fn is_zero(value: &usize) -> bool {
     *value == usize::MIN
 }
+
+pub fn pretty_json(value: serde_json::Value) -> String {
+    use serde_json::json;
+    format!("{:#}", json!(value))
+}

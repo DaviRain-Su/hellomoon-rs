@@ -96,7 +96,7 @@ pub struct IResponse {
     balance_token_b: Option<f64>,
 }
 
-pub async fn lp_balance_return_json_vale(
+pub async fn lp_balance(
     request: Option<LpBalanceRequest>,
     api_key: &str,
 ) -> anyhow::Result<LpBalanceResponse> {
@@ -104,7 +104,7 @@ pub async fn lp_balance_return_json_vale(
     core_call::<LpBalanceRequest, LpBalanceResponse>(request, api_url, api_key).await
 }
 
-pub async fn lp_balance(
+pub async fn lp_balance_return_json_vale(
     request: Option<LpBalanceRequest>,
     api_key: &str,
 ) -> anyhow::Result<serde_json::Value> {
@@ -118,6 +118,9 @@ async fn test_lp_balances() {
 
     let api_key = dotenv::var("api_keys").unwrap();
 
-    let left = lp_balance(Some(request), &api_key).await.unwrap();
-    println!("{:#?}", left);
+    let left = lp_balance_return_json_vale(Some(request), &api_key)
+        .await
+        .unwrap();
+
+    println!("{}", crate::pretty_json(left));
 }

@@ -13,6 +13,8 @@
 //! MEv1 (Magic Eden v1)
 //! MEv2 (Magic Eden v2)
 //!
+use std::default;
+
 use crate::{core_call, limit_is_zero, page_is_zero};
 use serde::{Deserialize, Serialize};
 
@@ -114,22 +116,17 @@ pub struct ListingStatusRequest {
     pagination_token: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Default)]
 pub enum Marketplace {
     #[serde(rename = "SMB")]
     Smb, // (Solana Monkey Business)
     #[serde(rename = "Solanart")]
     Solanart,
+    #[default]
     #[serde(rename = "MEv1")]
     Mev1, //(Magic Eden v1)
     #[serde(rename = "MEv2")]
     Mev2, //(Magic Eden v2)
-}
-
-impl Default for Marketplace {
-    fn default() -> Self {
-        Marketplace::Mev1
-    }
 }
 
 fn marketplace_is_empty(value: &Option<Marketplace>) -> bool {
