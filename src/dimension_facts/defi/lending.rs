@@ -7,7 +7,6 @@
 //! For example, get activity on popular lending protocols like Solend, so you know where and what token to lend.
 
 use serde::{Deserialize, Serialize};
-
 use crate::{core_call, limit_is_zero, page_is_zero};
 
 const API_URL: &str = "https://rest-api.hellomoon.io/v0/defi/lending";

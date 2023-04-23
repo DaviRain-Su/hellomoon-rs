@@ -9,73 +9,139 @@ Hello Moon Api reference implement by Rust.
 
 ## Dimension/Facts
 
-- NFT
-  - [x] Collection Candlesticks
-  - [x] Collection Mint Mapping
-  - [x] Collection Name Mapping
-  - [x] Listing Status
-  - [x] NFT Listings
-  - [x] Metaplex Metadata
-  - [x] Mints By Owner
-  - [x] Primary Sales
-  - [x] Secondary Sales
 - DEFI
-  - [x] Lending
-  - [x] LP Balances
-  - [x] LP Emissions
-  - [x] LP Metadata
-  - [ ] LP Withdrawal/Deposit
-  - [ ] Swaps
-  - [ ] Transactions by User
-  - [ ] Token Balances By Owner
-  - [ ] SPL Token Candlesticks
-  - [ ] Token Creation
-  - [ ] SPL Token List
-  - [ ] Token Supply
-  - [ ] Token Transfers Between Owners
+    - [x] DeFi Lending
+    - [x] LP Balances
+    - [x] LP Emissions
+    - [x] LP Metadata
+    - [ ] LP Withdrawal/Deposit
+    - [ ] DeFi Swaps
+    - [ ] Transactions by User (historical)
+    - [ ] Transactions by User
+    - [ ] Token Candlesticks
+    - [ ] Token Creation
+    - [ ] Token List
+    - [ ] Token Latest Price
+    - [ ] Token Supply
+    - [ ] Token Transfers
 - Staking
-  - [ ] Stake Accounts
-  - [ ] Account Delegation
-  - [ ] Block Rewards
-  - [ ] Account Transfers
+    - [ ] Stake Accounts
+    - [ ] Account Delegation
+    - [ ] Block Rewards
+    - [ ] Account Transfers
+- NFT
+    - [ ] NFT Collection Price/Volume (all-time)
+    - [ ] NFT Latest Floor Price (Batched)
+    - [ ] NFT Collection Floor Price Candlesticks
+    - [ ] NFT Latest Floor Price
+    - [ ] NFT Leaderboard Stats
+    - [ ] NFT Collection Mints
+    - [ ] NFT Collection Mapping Search
+    - [ ] NFT Collection Volatility
+    - [ ] NFT Estimated Price
+    - [ ] NFT Loan Summary
+    - [ ] NFT Listing Status
+    - [ ] NFT Listings
+    - [ ] NFT Loan Summary
+    - [ ] Metaplex Metadata
+    - [ ] NFT Ownership
+    - [ ] NFT Royalty
+    - [ ] Primary Sales
+    - [ ] Secondary Sales
+    - [ ] --
+    - [x] Collection Candlesticks
+    - [x] Collection Mint Mapping
+    - [x] Collection Name Mapping
+    - [x] Listing Status
+    - [x] NFT Listings
+    - [x] Metaplex Metadata
+    - [x] Mints By Owner
+    - [x] Primary Sales
+    - [x] Secondary Sales
 
 
+## DIMENSION / FACTS (PROTOCOLS)
 
-## Summay
+- Citrus
+    - [ ] Citrus Loan Events
+    - [ ] Citrus Loan Summary
+- Foxy
+    - [ ] Foxy Raffle Events
+- Frakt
+    - [ ] Frakt Bonds Loan Events
+    - [ ] Frakt Loan Events
+    - [ ] Frakt Loan Summary
+- Sharky
+    - [ ] Sharky APY
+    - [ ] Sharky Loan Events
+    - [ ] Sharky Loan Summary
+
+## HELLO MOON SUMMARY
 
 - DeFI summary
   - [ ] Program New Users
   - [ ] Program Stats
   - [ ] Program Overlap
-  - [ ] Top tokens per program
-  - [ ] Jupiter Current Stats
-  - [ ] Jupiter Historical Stats
-  - [ ] Jupiter Pair Volume
+  - [ ] Program Top Tokens
   - [ ] Jupiter Token Volume
-  - [ ] Swapping Pairs Weekly
+  - [ ] Collection Ownership Overlap
+  - [ ] Program Fees Txns Users
+  - [ ] Token Cumulative Volume
   - [ ] Token Users Over Time
   - [ ] Token New Users Over Time
-  - [ ] SPL Token Stats
+  - [ ] Token Stats
 - NFT summary
-  - [ ] Collection Listing Stats
-  - [ ] Collection Overship
-  - [ ] Cumulative NFT owners over time
-  - [ ] Collection Curent Owners
-  - [ ] Collection distinct owners over time 
+  - [ ] Collection Daily Sales Stats
+  - [ ] NFT Collection Listing Stats
+  - [ ] Collection Overlap
+  - [ ] NFT Cumulative Owners Over Time
+  - [ ] Collection Current Owners
+  - [ ] Collection Distinct Owners Over Time
   - [ ] Collection Holding Period
   - [ ] Collection Top Holders
   - [ ] Collection Program Usage
-  - [ ] Collection Stats
+  - [ ] Collection Stats With Floor Price
   - [ ] Collection Mint Stats
   - [ ] Collection washtrading index
+  - [ ] NFT Collection Loan Summary
   - [ ] Marketplace Stats
-  - [ ] Market Sales Over Time
+  - [ ] Marketplace Sales Over Time
+
+## SUMMARY (PROTOCOLS)
+- [ ] Jupiter Summary
+    -  [ ] Jupiter Current Stats
+    -  [ ] Jupiter Historical Stats
+    -  [ ] Jupiter Pair Volume
+    -  [ ] Token Swap Pairs Weekly
+- [ ] Sharky Summary
+    -  [ ] Sharky Default Stats
+    -  [ ] Sharky Historical Defaults
 
 ## hello moon public api
 
 - Hello Moon
-  - [ ] Parsed Dexes
-  - [ ] Create a new subscription
-  - [ ] Retrieve the list of streams in your account
-  - [ ] Delate a subscription
-  - [ ] Update a subscription
+    - [ ] Create an ParsedAccountUpdate stream
+    - [ ] Update a ParsedAccountUpdate stream
+    - [ ] Create an UnparsedAccountUpdate stream
+    - [ ] Update an UnparsedAccountUpdate stream
+    - [ ] Collection Mint Mappings
+    - [ ] Parsed Dexes
+    - [ ] Create a new subscription
+    - [ ] Retrieve the list of streams in your account
+    - [ ] Delete a subscription
+    - [ ] Retrieve a subscription
+    - [ ] Update a subscription
+    - [ ] Create an UnparsedTransaction stream
+    - [ ] Update an UnparsedTransaction stream
+- Frakt Summary
+    - [ ] Frakt Bonds Summary
+    - [ ] Frakt Pairs Summary
+
+
+## 🟣 RPC NODE
+- [ ] RPC Quickstart
+- [ ] Solana Json RPC calls
+
+## IMAGES AND METADATA
+- [ ] Image CDN Quickstart
+- [ ] NFT Social Metadata
