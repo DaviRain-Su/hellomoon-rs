@@ -113,7 +113,7 @@ pub async fn lp_balance_return_json_vale(
 }
 
 #[tokio::test]
-async fn test_lp_balances() {
+async fn test_lp_balance_return_json_vale() {
     let request = LpBalanceRequest::default();
 
     let api_key = dotenv::var("api_keys").unwrap();
@@ -123,4 +123,15 @@ async fn test_lp_balances() {
         .unwrap();
 
     println!("{}", crate::pretty_json(left));
+}
+
+#[tokio::test]
+async fn test_lp_balance() {
+    let request = LpBalanceRequest::default();
+
+    let api_key = dotenv::var("api_keys").unwrap();
+
+    let left = lp_balance(Some(request), &api_key).await.unwrap();
+
+    println!("lp balance: {:#?}", left);
 }

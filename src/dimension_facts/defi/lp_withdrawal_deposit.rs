@@ -74,7 +74,34 @@ pub struct LpWithdrawalDepositResponse {
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
-pub struct IResponse {}
+pub struct IResponse {
+    #[serde(rename = "actionType")]
+    action_type: String,
+    #[serde(rename = "amountTokenA")]
+    amount_token_a: usize,
+    #[serde(rename = "amountTokenB")]
+    amount_token_b: usize,
+    #[serde(rename = "instructionId")]
+    instruction_id: String,
+    #[serde(rename = "instructionName")]
+    instruction_name: String,
+    #[serde(rename = "instructionOrdinal")]
+    instruction_ordinal: usize,
+    #[serde(rename = "instructionposition")]
+    instruction_position: usize,
+    #[serde(rename = "programId")]
+    program_id: String,
+    #[serde(rename = "subinstructionposition")]
+    sub_instruction_position: isize,
+    #[serde(rename = "tokenMintA")]
+    token_mint_a: String,
+    #[serde(rename = "tokenMintB")]
+    token_mint_b: String,
+    #[serde(rename = "transactionId")]
+    transaction_id: String,
+    #[serde(rename = "userAccount")]
+    use_account: String,
+}
 
 pub async fn lp_withdrawal_deposit(
     request: Option<LpWithdrawalDepositRequest>,
@@ -101,7 +128,19 @@ pub async fn lp_withdrawal_deposit_returen_json_value(
 
 #[tokio::test]
 async fn test_lp_withdrawal_deposit() {
-    use serde_json::json;
+    let request = LpWithdrawalDepositRequest::default();
+
+    let api_key = dotenv::var("api_keys").unwrap();
+
+    let left = lp_withdrawal_deposit(Some(request), &api_key)
+        .await
+        .unwrap();
+
+    println!("lp withdrawal deposit: {:#?}", left);
+}
+
+#[tokio::test]
+async fn test_lp_withdrawal_deposit_returen_json_value() {
     let request = LpWithdrawalDepositRequest::default();
 
     let api_key = dotenv::var("api_keys").unwrap();
@@ -110,5 +149,5 @@ async fn test_lp_withdrawal_deposit() {
         .await
         .unwrap();
 
-    println!("{}", crate::pretty_json(left));
+    println!("lp withdrawal deposit: {}", crate::pretty_json(left));
 }

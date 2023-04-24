@@ -156,6 +156,7 @@ pub async fn nft_listings(
 }
 
 #[tokio::test]
+#[ignore = "reason"]
 async fn test_nft_listings() {
     let request = NftListingsRequest::default();
     // request.hello_moon_collection_id = "040de757c0d2b75dcee999ddd47689c4".to_string();

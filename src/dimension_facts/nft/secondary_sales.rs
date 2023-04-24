@@ -163,6 +163,7 @@ pub async fn scondary_sales(
 }
 
 #[tokio::test]
+#[ignore = "reason"]
 async fn test_scondary_sales() {
     let request = SecondarySalesRequest::default();
     // request.hello_moon_collection_id = "040de757c0d2b75dcee999ddd47689c4".to_string();

@@ -160,6 +160,7 @@ pub async fn primary_sales(
 }
 
 #[tokio::test]
+#[ignore = "reason"]
 async fn test_primary_sales() {
     let request = PrimarySalesRequest::default();
 

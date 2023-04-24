@@ -99,7 +99,18 @@ pub async fn lp_emission_return_json_value(
 }
 
 #[tokio::test]
-async fn test_lp_emissions_example() {
+async fn test_lp_emission() {
+    let request = LpEmissionsRequest::default();
+
+    let api_key = dotenv::var("api_keys").unwrap();
+
+    let left = lp_emission(Some(request), &api_key).await.unwrap();
+
+    println!("lp emission: {:#?}", left);
+}
+
+#[tokio::test]
+async fn test_lp_emission_return_json_value() {
     let request = LpEmissionsRequest::default();
 
     let api_key = dotenv::var("api_keys").unwrap();

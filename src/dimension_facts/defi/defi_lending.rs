@@ -146,7 +146,7 @@ pub async fn defi_lending_return_json_value(
 }
 
 #[tokio::test]
-async fn test_defi_lending() {
+async fn test_defi_lending_return_json_value() {
     let request = DefiLendingRequest::default();
 
     let api_key = dotenv::var("api_keys").unwrap();
@@ -154,5 +154,17 @@ async fn test_defi_lending() {
     let left = defi_lending_return_json_value(Some(request), &api_key)
         .await
         .unwrap();
+
     println!("defi_lending: {}", crate::pretty_json(left));
+}
+
+#[tokio::test]
+async fn test_defi_lending() {
+    let request = DefiLendingRequest::default();
+
+    let api_key = dotenv::var("api_keys").unwrap();
+
+    let left = defi_lending(Some(request), &api_key).await.unwrap();
+
+    println!("defi_lending: {:?}", left);
 }

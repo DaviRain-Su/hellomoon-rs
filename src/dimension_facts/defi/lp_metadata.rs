@@ -102,7 +102,18 @@ pub async fn lp_metadata(
 }
 
 #[tokio::test]
-async fn test_lp_metadata_example() {
+async fn test_lp_metadata() {
+    let request = LpMetadataRequest::default();
+
+    let api_key = dotenv::var("api_keys").unwrap();
+
+    let left = lp_metadata(Some(request), &api_key).await.unwrap();
+
+    println!("lp metaata: {:#?}", left);
+}
+
+#[tokio::test]
+async fn test_lp_metadata_return_json_value() {
     let request = LpMetadataRequest::default();
 
     let api_key = dotenv::var("api_keys").unwrap();

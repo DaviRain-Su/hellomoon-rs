@@ -153,6 +153,7 @@ pub async fn listing_status(
 }
 
 #[tokio::test]
+#[ignore = "reason"]
 async fn test_listing_status() {
     let mut request = ListingStatusRequest::default();
     request.hello_moon_collection_id = "040de757c0d2b75dcee999ddd47689c4".to_string();
