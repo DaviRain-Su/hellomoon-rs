@@ -19,8 +19,8 @@ pub struct LpEmissionsRequest {
     #[serde(skip_serializing_if = "String::is_empty")]
     pub mint: String,
     #[serde(rename = "blockTime")]
-    #[serde(skip_serializing_if = "is_zero")]
-    pub block_time: usize,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub block_time: Option<BlockTime>,
     /// The number of results to return per page
     #[serde(skip_serializing_if = "limit_is_zero")]
     pub limit: usize,
@@ -31,6 +31,25 @@ pub struct LpEmissionsRequest {
     #[serde(rename = "paginationToken")]
     #[serde(skip_serializing_if = "String::is_empty")]
     pub pagination_token: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+pub enum BlockTime {
+    Option1 {
+        operator: String,
+        /// Unix epoch time (in seconds) of a block as calculated from validator votes.
+        /// If you want to look at historical data, let's say 7 days in the past.
+        /// 1. Change the operator to <
+        /// 2. Get the current epochtime i.e, 1673831466 -> Jan 15, 2023
+        /// 3. Subtract the current epochtime from ( 86400 * 7 ). Place the result of 1673831466 - ( 86400 * 7 ) = 1673226666 in the value input - this returns the epochtime time from 7 days ago
+        value: usize,
+    },
+    /// Unix epoch time (in seconds) of a block as calculated from validator votes.
+    /// If you want to look at historical data, let's say 7 days in the past.
+    /// 1. Change the operator to <
+    /// 2. Get the current epochtime i.e, 1673831466 -> Jan 15, 2023
+    /// 3. Subtract the current epochtime from ( 86400 * 7 ). Place the result of 1673831466 - ( 86400 * 7 ) = 1673226666 in the value input - this returns the epochtime time from 7 days ago
+    Option2(usize),
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
