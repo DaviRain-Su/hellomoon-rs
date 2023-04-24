@@ -14,32 +14,32 @@ pub struct LpEmissionsRequest {
     /// > You can also visit https://www.hellomoon.io/id?search=lp to search for a liquidity pool or provider using a user interface.
     #[serde(rename = "poolAddress")]
     #[serde(skip_serializing_if = "String::is_empty")]
-    pool_address: String,
+    pub pool_address: String,
     /// The spl mint of the reward being emitted by the lp
     #[serde(skip_serializing_if = "String::is_empty")]
-    mint: String,
+    pub mint: String,
     #[serde(rename = "blockTime")]
     #[serde(skip_serializing_if = "is_zero")]
-    block_time: usize,
+    pub block_time: usize,
     /// The number of results to return per page
     #[serde(skip_serializing_if = "limit_is_zero")]
-    limit: usize,
+    pub limit: usize,
     /// The page number to return
     #[serde(skip_serializing_if = "page_is_zero")]
-    page: usize,
+    pub page: usize,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
     #[serde(skip_serializing_if = "String::is_empty")]
-    pagination_token: String,
+    pub pagination_token: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct LpEmissionsResponse {
     /// array of objects
-    data: Option<Vec<IResponse>>,
+    pub data: Option<Vec<IResponse>>,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
-    pagination_token: Option<String>,
+    pub pagination_token: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -50,31 +50,31 @@ pub struct IResponse {
     /// 2. Get the current epochtime i.e, 1673831466 -> Jan 15, 2023
     /// 3. Subtract the current epochtime from ( 86400 * 7 ). Place the result of 1673831466 - ( 86400 * 7 ) = 1673226666 in the value input - this returns the epochtime time from 7 days ago
     #[serde(rename = "blockTime")]
-    block_time: Option<usize>,
+    pub block_time: Option<usize>,
     /// Numeric identifier of a block describing the slot that the block was produced in
     #[serde(rename = "blockId")]
-    block_id: Option<usize>,
+    pub block_id: Option<usize>,
     /// Transaction ID of the the transaction where the reward config was set
     #[serde(rename = "transactionId")]
-    transaction_id: Option<String>,
+    pub transaction_id: Option<String>,
     /// Public key of address holding information about the pool.
     /// > You can also visit https://www.hellomoon.io/id?search=lp to search for a liquidity pool or provider using a user interface.
     #[serde(rename = "poolAddress")]
-    pool_address: Option<String>,
+    pub pool_address: Option<String>,
     ///The spl mint of the reward being emitted by the lp
-    mint: Option<String>,
+    pub mint: Option<String>,
     ///The amount of token given per day to liquidity providers of the pool in tokens native units
     #[serde(rename = "emissionsPerDay")]
-    emissions_per_day: Option<f64>,
+    pub emissions_per_day: Option<f64>,
     /// The amount of token given per day to liquidity providers of the pool converted for token decimals
     #[serde(rename = "emissionsPerDayConverted")]
-    emissions_per_day_converted: Option<f64>,
+    pub emissions_per_day_converted: Option<f64>,
     /// Name of token per the Metaplex standard
     #[serde(rename = "mintName")]
-    mint_aame: Option<String>,
+    pub mint_aame: Option<String>,
     /// Public Key of tokenaccount rewards are paid out from
     #[serde(rename = "rewardVault")]
-    reward_vault: Option<String>,
+    pub reward_vault: Option<String>,
 }
 pub async fn lp_emission(
     request: Option<LpEmissionsRequest>,

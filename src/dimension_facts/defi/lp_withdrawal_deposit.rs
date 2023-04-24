@@ -15,43 +15,43 @@ pub struct LpWithdrawalDepositRequest {
     /// The program id references the lending program that the user account is removing or adding tokens from
     #[serde(skip_serializing_if = "String::is_empty")]
     #[serde(rename = "programId")]
-    program_id: String,
+    pub program_id: String,
     /// The user account is the account that is removing or adding tokens.
     #[serde(skip_serializing_if = "String::is_empty")]
     #[serde(rename = "userAccount")]
-    user_account: String,
+    pub user_account: String,
     /// First signature in a transaction, which can be used to track and verify the transaction status across the complete ledger.
     /// It is a base-58 encoded string that is uniquely generated for each transaction.
     #[serde(skip_serializing_if = "String::is_empty")]
     #[serde(rename = "transactionId")]
-    transaction_id: String,
+    pub transaction_id: String,
     /// Name of this instruction
     #[serde(skip_serializing_if = "String::is_empty")]
     #[serde(rename = "instructionName")]
-    instruction_name: String,
+    pub instruction_name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "actionType")]
-    action_type: Option<ActionType>,
+    pub action_type: Option<ActionType>,
     /// Token mint A is the token address of the first token provided to the liquidity pool.
     /// The USD value of the deposit always needs to be split between the two tokens to ensure equal value on each side.
     #[serde(skip_serializing_if = "String::is_empty")]
     #[serde(rename = "tokenMintA")]
-    token_mint_a: String,
+    pub token_mint_a: String,
     /// Token mint B is the token address of the second token provided to the liquidity pool.
     /// The USD value of the deposit always needs to be split between the two tokens to ensure equal value on each side.
     #[serde(skip_serializing_if = "String::is_empty")]
     #[serde(rename = "tokenMintB")]
-    token_mint_b: String,
+    pub token_mint_b: String,
     /// The number of results to return per page
     #[serde(skip_serializing_if = "limit_is_zero")]
-    limit: usize,
+    pub limit: usize,
     /// The page number to return
     #[serde(skip_serializing_if = "page_is_zero")]
-    page: usize,
+    pub page: usize,
     /// The pagination token to use to keep your position in the results
     #[serde(rename = "paginationToken")]
     #[serde(skip_serializing_if = "String::is_empty")]
-    pagination_token: String,
+    pub pagination_token: String,
 }
 
 /// Select the action types: addLiquidity or removeLiquidity
@@ -68,39 +68,39 @@ pub enum ActionType {
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct LpWithdrawalDepositResponse {
     /// array of objects
-    data: Option<Vec<IResponse>>,
+    pub data: Option<Vec<IResponse>>,
     #[serde(rename = "paginationToken")]
-    pagination_token: Option<String>,
+    pub pagination_token: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct IResponse {
     #[serde(rename = "actionType")]
-    action_type: String,
+    pub action_type: String,
     #[serde(rename = "amountTokenA")]
-    amount_token_a: usize,
+    pub amount_token_a: usize,
     #[serde(rename = "amountTokenB")]
-    amount_token_b: usize,
+    pub amount_token_b: usize,
     #[serde(rename = "instructionId")]
-    instruction_id: String,
+    pub instruction_id: String,
     #[serde(rename = "instructionName")]
-    instruction_name: String,
+    pub instruction_name: String,
     #[serde(rename = "instructionOrdinal")]
-    instruction_ordinal: usize,
+    pub instruction_ordinal: usize,
     #[serde(rename = "instructionposition")]
-    instruction_position: usize,
+    pub instruction_position: usize,
     #[serde(rename = "programId")]
-    program_id: String,
+    pub program_id: String,
     #[serde(rename = "subinstructionposition")]
-    sub_instruction_position: isize,
+    pub sub_instruction_position: isize,
     #[serde(rename = "tokenMintA")]
-    token_mint_a: String,
+    pub token_mint_a: String,
     #[serde(rename = "tokenMintB")]
-    token_mint_b: String,
+    pub token_mint_b: String,
     #[serde(rename = "transactionId")]
-    transaction_id: String,
+    pub transaction_id: String,
     #[serde(rename = "userAccount")]
-    use_account: String,
+    pub use_account: String,
 }
 
 pub async fn lp_withdrawal_deposit(

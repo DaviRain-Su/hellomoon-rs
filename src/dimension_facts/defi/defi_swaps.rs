@@ -1,3 +1,10 @@
+//! # DeFi Swaps
+//!
+//! POST https://rest-api.hellomoon.io/v0/defi/swaps
+//!
+//! DeFi Swaps endpoint can be used to track and verify both large and small
+//! swap amounts that occur on the Solana blockchain. Hello Moon also provides key data fields such as the time of the swap, who made the swap, and the program and aggregator that was used.
+//!
 use serde::{Deserialize, Serialize};
 
 use crate::{core_call, limit_is_zero, page_is_zero};
